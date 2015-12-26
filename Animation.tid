@@ -1,0 +1,97 @@
+caption: Animation
+title: $:/plugins/inmysocks/SnapJS/Animation
+
+\define thisSelectEffect()
+<$select tiddler='$:/state/Animation' field='effect'>
+<option value=''>None</option>
+<$list filter='backin backout bounce easein easeinout easeout elastic getById linear time'>
+<option><$view field=title/></option>
+</$list>
+</$select>
+\end
+
+\define thisHelper()
+<$tiddler tiddler=<<ObjectTiddler>>>
+<$macrocall $name=thisAddAnimationButton ImageName={{$:/state/Animation!!selected_image}} ObjectName={{!!object_name}} AnimationName={{$:/state/Animation!!animation_name}}/>
+</$tiddler>
+\end
+
+\define thisAddAnimationButton(ImageName ObjectName AnimationName)
+<$button>Add Animation
+<$action-setfield $tiddler='$:/SVG Animation/$ImageName$/$ObjectName$/$AnimationName$' target_location={{$:/state/Animation!!target_location}} rotation={{$:/state/Animation!!rotation}} scale={{$:/state/Animation!!scale}} duration={{$:/state/Animation!!duration}} effect={{$:/state/Animation!!effect}} image={{$:/state/Animation!!selected_image}} object_name="""$ObjectName$""" group_name="""$(GroupName)$""" tags=Animation animation_name={{$:/state/Animation!!animation_name}} object_type={{$:/state/Animation!!object_type}}/>
+<$action-setfield $tiddler='$:/state/Animation' target_location='' rotation='' scale='' duration='' effect='' animation_name=''/>
+</$button>
+\end
+
+For now this is going to be a sequence of movement and rotation strings. If I can make it so that you can move the thing on the image to set the start and end points of the movement that would be cool. Adding in a scale thing would be good too. Look into that.
+
+Animation Name
+<$edit-text tiddler='$:/state/Animation' field='animation_name' class='tc-edit-texteditor'/>
+
+Select SVG Surface:
+<$select tiddler='$:/state/Animation' field='selected_image'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='title'/>
+		</option>
+	</$list>
+</$select>
+
+<$radio tiddler='$:/state/Animation' field='object_type' value=element>Element</$radio>
+
+<$radio tiddler='$:/state/Animation' field='object_type' value=group>Group</$radio>
+
+<$reveal type='nomatch' state='$:/state/Animation!!object_type' text=group>
+
+Select Element:
+<$select tiddler='$:/state/Animation' field='selected_object'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[tag{$:/state/Animation!!selected_image}tag[SVG Element]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='object_name'/>
+		</option>
+	</$list>
+</$select>
+
+</$reveal>
+
+<$reveal type='match' state='$:/state/Animation!!object_type' text=group>
+
+Select Group:
+<$select tiddler='$:/state/Animation' field='selected_object'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[image{$:/state/Animation!!selected_image}object_type[Group]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='object_name'/>
+		</option>
+	</$list>
+</$select>
+
+</$reveal>
+
+|Movement |<$edit-text tiddler='$:/state/Animation' field='target_location' class='tc-edit-texteditor' size=10/> |<!--<$button>Set Location<$action-setfield $tiddler='$:/state/Animation' $field='set_location' $value='true'/></$button>--> |
+|Rotation |<$edit-text tiddler='$:/state/Animation' field='rotation' class='tc-edit-texteditor' size=10/> |degrees |
+|Opacity |<$edit-text tiddler='$:/state/Animation' field='fill_opacity' class='tc-edit-texteditor' size=10/> | |
+|Scale |<$edit-text tiddler='$:/state/Animation' field='scale' class='tc-edit-texteditor' size=10/> | |
+|Duration |<$edit-text tiddler='$:/state/Animation' field='duration' class='tc-edit-texteditor' size=10/> |ms (1000ms = 1s) |
+|Effect |<<thisSelectEffect>> | |
+
+<$reveal type=nomatch state='$:/state/Animation!!animation_name' text=''>
+
+<$list filter='[[$:/state/Animation]get[selected_object]get[object_name]]' variable=ObjectName emptyMessage="""<$vars ObjectTiddler={{$:/state/Animation!!selected_object}}><<thisHelper>></$vars>""">
+<$vars ObjectTiddler={{$:/state/Animation!!selected_object}}>
+<<thisHelper>>
+</$vars>
+</$list>
+
+</$reveal>
+<$reveal type=match state='$:/state/Animation!!animation_name' text=''>
+Give the animation a name.
+</$reveal>

@@ -1,0 +1,46 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/inmysocks/SnapJS/EllipseControlTemplate
+
+\define thisMakeSVG()
+<svg id={{!!element_name}} height=$(Height)$ width=$(Width)$>
+	<ellipse
+		cx=0
+		cy=0
+		rx="$(RX)$"
+		ry="$(RY)$"
+		stroke-width="$(StrokeWidth)$"
+		stroke="#$(StrokeColor)$"
+		fill="#$(FillColor)$"
+transform="translate($(CX)$,$(CY)$)rotate($(Rotation)$)scale($(Scale)$)">
+	</ellipse>
+</svg>
+\end
+
+<$list filter='[is[current]element_type[ellipse]]'>
+
+<$vars StrokeColor={{!!stroke_color}} FillColor={{!!fill_color}} CX={{!!x_position}} CY={{!!y_position}} RX={{!!x_radius}} RY={{!!y_radius}} StrokeWidth={{!!stroke_width}} Rotation={{!!rotation}} Scale={{!!scale}} TranslateX={{!!cx}} TranslateY={{!!cy}} Height={{!!view_height}} Width={{!!view_width}}>
+<<thisMakeSVG>>
+</$vars>
+
+You can not drag dragable elements in this view, changes to location here changes the default location for the element.
+
+View height and width control the size of the SVG surface used here to show this element. It has no effect on other surfaces or using the element in an image.<br>
+Set View Height <$edit-text field=view_height/>
+Set View Width: <$edit-text field=view_width/>
+
+<$checkbox field='dragable' checked=true unchecked=false>Dragable</$checkbox>
+
+X Position: <$range field='x_position' min=1 max=750 step=5/><br>
+Y Position: <$range field='y_position' min=1 max=750 step=5/><br>
+Rotation: <$range field='rotation' min='-180' max=180 step=1/> (<$edit-text field='rotation' size=2/> degrees)<br>
+Scale: <$range field='scale' min=0.1 max=10 step=0.01/> (<$edit-text field='scale' size=2/>)<br>
+Fill Color: <$edit-text field='fill_color'/><br>
+Fill Opacity: <$edit-text field='fill_opacity'/><br>
+Stroke Color: <$edit-text field='stroke_color'/><br>
+Stroke Width: <$edit-text field='stroke_width'/><br>
+Layer: <$edit-text field='order'/> (Higher numbers cover lower numbers)<br>
+Class: <$edit-text field='class'/><br>
+
+X Radius: <$range field='x_radius' min=1 max=100 step=5/><br>
+Y Radius: <$range field='y_radius' min=1 max=100 step=5/><br>
+</$list>

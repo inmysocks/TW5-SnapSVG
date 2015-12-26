@@ -1,0 +1,32 @@
+caption: Images
+title: $:/plugins/inmysocks/SnapJS/Images
+
+Select Image: 
+
+<$select tiddler='$:/state/Images' field=selected_surface>
+<option value=''>--</option>
+<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+<option value=<<currentTiddler>>><$view field='title'/></option>
+</$list>
+</$select>
+
+<$checkbox tiddler={{$:/state/Images!!selected_surface}} field='play' checked='true' unchecked='false'>Animate</$checkbox>
+
+<$reveal type='match' state='$:/state/Images!!selected_surface' text=''>
+Select an image.
+</$reveal>
+
+<$reveal type='nomatch' state='$:/state/Images!!selected_surface' text=''>
+
+Height: <$edit-text tiddler={{$:/state/Images!!selected_surface}} field='height'/>
+
+
+Width: <$edit-text tiddler={{$:/state/Images!!selected_surface}} field='width'/>
+
+Contained Elements:
+
+<$list filter='[tag[SVG Element]]'>
+<$checkbox tag={{$:/state/Images!!selected_surface}}><$view field=object_name/></$checkbox> (<$link to=<<currentTiddler>>>Edit</$link>)<br>
+</$list>
+
+</$reveal>

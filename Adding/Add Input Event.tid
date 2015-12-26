@@ -1,0 +1,76 @@
+caption: Add Input Event
+tags: $:/tags/SnapJS/Actions
+title: $:/plugins/inmysocks/SnapJS/Add Input Event
+
+\define thisMakeButton()
+<$button>Create Input Event
+	<$action-setfield $tiddler="""$:/SVG Input Event/$(InputEventType)$/$(ActionName)$""" action_name="""$(ActionName)$""" action_tiddler={{$:/temp/SnapJS/Add Input!!selected_action}} action_type={{$:/temp/SnapJS/Add Input!!input_type}} target_object={{$:/temp/SnapJS/Add Input!!object_name}} target_type={{$:/temp/SnapJS/Add Input!!object_type}} tags="""Action [[$(SVGImage)$]]"""/>
+	<$action-setfield $tiddler='$:/temp/SnapJS/Add Input' action_name=''/>
+</$button>
+\end
+
+Input Event Name:
+
+<$edit-text tiddler='$:/temp/SnapJS/Add Input' field='action_name' class='tc-edit-texteditor'/>
+
+Input Event Type:
+<$select tiddler='$:/temp/SnapJS/Add Input' field='input_type'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[[Click Event]] [[Hover Event]] [[Double Click Event]]'>
+		<option>
+			<<currentTiddler>>
+		</option>
+	</$list>
+</$select>
+
+Image:
+<$select tiddler='$:/temp/SnapJS/Add Input' field='selected_image'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='title'/>
+		</option>
+	</$list>
+</$select>
+
+Target Object:
+
+<$radio tiddler='$:/temp/SnapJS/Add Input' field='object_type' value='Group'>Group</$radio>
+
+<$radio tiddler='$:/temp/SnapJS/Add Input' field='object_type' value='Element'>Element</$radio>
+
+<$select tiddler='$:/temp/SnapJS/Add Input' field='object_name'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[tag{$:/temp/SnapJS/Add Input!!selected_image}object_type{$:/temp/SnapJS/Add Input!!object_type}]'>
+		<option>
+			<$view field='object_name'/>
+		</option>
+	</$list>
+</$select>
+
+Select action to execute:
+
+<$select tiddler='$:/temp/SnapJS/Add Input' field='selected_action'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[tag[Action]has[action_type]each[action_type]get[action_type]] -[[Click Event]] -[[Hover Event]] -[[Double Click Event]] -[[Mouse Down Event]] -[[Mouse Up Event]] -[[Mouse Move Event]] -[[Mouse Over Event]] -[[Mouse In Event]] -[[Mouse Out Event]]'>
+		<optgroup label={{!!title}}>
+			<$list filter='[tag[Action]action_type<currentTiddler>]'>
+				<option value=<<currentTiddler>>>
+					<$view field='action_name'/>
+				</option>
+			</$list>
+		</optgroup>
+	</$list>
+</$select>
+
+<$vars SVGImage={{$:/temp/SnapJS/Add Input!!selected_image}} ActionName={{$:/temp/SnapJS/Add Input!!action_name}} InputEventType={{$:/temp/SnapJS/Add Input!!input_type}}>
+	<<thisMakeButton>>
+</$vars>

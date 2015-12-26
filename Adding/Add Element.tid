@@ -1,0 +1,308 @@
+caption: Add Element
+title: $:/plugins/inmysocks/SnapJS/Add Element
+
+\define AddButton()
+<$button>Add {{$:/state/Add Thing!!add_thing}}
+	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=circle>
+	circle
+		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" circle_radius={{$:/state/Add Thing!!radius}}/>
+	</$reveal>
+
+	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=ellipse>
+	ellipse
+		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" x_radius={{$:/state/Add Thing!!x_radius}} y_radius={{$:/state/Add Thing!!y_radius}}/>
+	</$reveal>
+
+	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=rect>
+	rect
+		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" width={{$:/state/Add Thing!!width}} height={{$:/state/Add Thing!!height}}/>
+	</$reveal>
+
+	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=polygon>
+	polygon
+		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" points={{$:/state/Add Thing!!points}}/>
+		<$list filter='[[$:/state/Add Thing]list[!!points]first[]]'>
+			<$action-listops $tiddler="""$:/SVG Element/{{$:/state/Add Thing!!add_thing}}/$(ElementName)$""" $list='points' subfilter='+[append{$:/state/Add Thing!!points}'/>
+		</$list>
+		<$list filter='[[$:/state/Add Thing]list[!!points]butfirst[]]'>
+			<$action-listops $tiddler="""$:/SVG Element/{{$:/state/Add Thing!!add_thing}}/$(ElementName)$""" $list='points' subfilter='+[append[ , ]append{$:/state/Add Thing!!points}'/>
+		</$list>
+	</$reveal>
+
+	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=line>
+	line
+		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" x_1={{$:/state/Add Thing!!x_1}} y_1={{$:/state/Add Thing!!y_1}} x_2={{$:/state/Add Thing!!x_2}} y_2={{$:/state/Add Thing!!y_2}}/>
+	</$reveal>
+
+	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=image>
+	image
+		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" width={{$:/state/Add Thing!!width}} height={{$:/state/Add Thing!!height}} source={{$:/state/Add Thing!!source}}/>
+	</$reveal>
+
+	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=tiddler>
+	tiddler
+		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" width={{$:/state/Add Thing!!width}} height={{$:/state/Add Thing!!height}} image_tiddler={{$:/state/Add Thing!!image_tiddler}}/>
+	</$reveal>
+
+	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=text>
+	text
+		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" text={{$:/state/Add Thing!!displayed_text}}/>
+	</$reveal>
+
+	<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" tags="""[[SVG Element]] [[$(SelectedSurface)$]]""" element_type={{$:/state/Add Thing!!add_thing}} object_name={{$:/state/Add Thing!!object_name}} dragable={{$:/state/Add Thing!!dragable}} x_position={{$:/state/Add Thing!!x_position}} y_position={{$:/state/Add Thing!!y_position}} fill_color={{$:/state/Add Thing!!fill_color}} object_type=Element xc=0 yc=0  stroke_color={{$:/state/Add Thing!!stroke_color}} stroke_width={{$:/state/Add Thing!!stroke_width}} fill_opacity={{$:/state/Add Thing!!fill_opacity}} class={{$:/state/Add Thing!!class}}/>
+
+	<$action-setfield $tiddler='$:/state/Add Thing' x_position='' y_position='' height='' width='' object_name='' fill_color='' stroke_color='' stroke_width='' fill_opacity='' source='' image_tiddler='' class='' displayed_text='' x_1='' y_1='' x_2='' y_2='' circle_radius='' y_radius='' x_radius='' radius='' points=''/>
+
+</$button>
+\end
+
+*Select the thing you want to add from the selection
+**Lines aren't done yet. I keep forgetting about that.
+*Checking the draggable box lets you move an item by dragging it.
+*Circles, ellipses and rectangles should be self explanatory 
+*Polygons are added by clicking on the button 'New Point' then clicking on the SVG image where you want the point to be and then click on 'add' to add the point.
+*Repeat the process for each point you want to add.
+*Once a point is added you can click on the button 'edit' next to it to move it in the image. The outline of the image is visible while making it.
+*Once you have are finished adding points click on 'Add Polygon'
+
+Add to which image?
+
+<$select tiddler='$:/state/Add Thing' field='image'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='title'/>
+		</option>
+	</$list>
+</$select> (<$link to={{$:/state/Add Thing!!image}}>Open Image Tiddler</$link>)
+
+What to add:
+<$select tiddler='$:/state/Add Thing' field='add_thing'>
+	<option value=''>
+		--
+	</option>
+	<option value=circle>
+		Circle
+	</option>
+	<option value=ellipse>
+		Ellipse
+	</option>
+	<option value=rect>
+		Rectangle
+	</option>
+	<option value=line>
+		Line
+	</option>
+	<option value=polygon>
+		Polygon
+	</option>
+	<option value=image>
+		External Image
+	</option>
+	<option value=tiddler>
+		SVG from Tiddler
+	</option>
+	<option value=text>
+		Text
+	</option>
+</$select>
+
+Element Name:
+<$edit-text tiddler='$:/state/Add Thing' field=object_name class='tc-edit-texteditor'/>
+
+Class: <$edit-text tiddler='$:/state/Add Thing' field='class'class='tc-edit-texteditor'/>
+
+<$checkbox tiddler='$:/state/Add Thing' field=dragable checked=true unchecked=false>Dragable Element</$checkbox><br>
+
+
+<$reveal type=match state='$:/state/Add Thing!!add_thing' text=image>
+
+|x |<$edit-text tiddler='$:/state/Add Thing' field=x_position/> |
+|y |<$edit-text tiddler='$:/state/Add Thing' field=y_position/> |
+|Width |<$edit-text tiddler='$:/state/Add Thing' field=width/> |
+|Height |<$edit-text tiddler='$:/state/Add Thing' field=height/> |
+|Source |<$edit-text tiddler='$:/state/Add Thing' field=source/> |
+
+</$reveal>
+
+<$reveal type=match state='$:/state/Add Thing!!add_thing' text=tiddler>
+
+|x |<$edit-text tiddler='$:/state/Add Thing' field=x_position/> |
+|y |<$edit-text tiddler='$:/state/Add Thing' field=y_position/> |
+|Width |<$edit-text tiddler='$:/state/Add Thing' field=width/> |
+|Height |<$edit-text tiddler='$:/state/Add Thing' field=height/> |
+|Image Tiddler |<$edit-text tiddler='$:/state/Add Thing' field=image_tiddler/> |
+
+</$reveal>
+
+<$reveal type=match state='$:/state/Add Thing!!add_thing' text=text>
+
+|x |<$edit-text tiddler='$:/state/Add Thing' field=x_position/> |
+|y |<$edit-text tiddler='$:/state/Add Thing' field=y_position/> |
+|Text |<$edit-text tiddler='$:/state/Add Thing' field='displayed_text'/> |
+
+</$reveal>
+
+<$reveal type=match state='$:/state/Add Thing!!add_thing' text=circle>
+
+|Parameter |Value |
+|Radius |<$edit-text tiddler='$:/state/Add Thing' field='radius'/> |
+|X position |<$edit-text tiddler='$:/state/Add Thing' field='x_position'/> |
+|Y position |<$edit-text tiddler='$:/state/Add Thing' field='y_position'/> |
+|Fill color |<$edit-text tiddler='$:/state/Add Thing' field='fill_color'/> |
+|Fill Opacity |<$edit-text tiddler='$:/state/Add Thing' field='fill_opacity'/> |
+|Stroke Color |<$edit-text tiddler='$:/state/Add Thing' field='stroke_color'/> |
+|Stroke Width |<$edit-text tiddler='$:/state/Add Thing' field='stroke_width'/> |
+
+</$reveal>
+
+<$reveal type=match state='$:/state/Add Thing!!add_thing' text=ellipse>
+
+|Parameter |Value |
+|X Radius |<$edit-text tiddler='$:/state/Add Thing' field='x_radius'/> |
+|Y Radius |<$edit-text tiddler='$:/state/Add Thing' field='y_radius'/> |
+|X position |<$edit-text tiddler='$:/state/Add Thing' field='x_position'/> |
+|Y position |<$edit-text tiddler='$:/state/Add Thing' field='y_position'/> |
+|Fill color |<$edit-text tiddler='$:/state/Add Thing' field='fill_color'/> |
+|Fill Opacity |<$edit-text tiddler='$:/state/Add Thing' field='fill_opacity'/> |
+|Stroke Color |<$edit-text tiddler='$:/state/Add Thing' field='stroke_color'/> |
+|Stroke Width |<$edit-text tiddler='$:/state/Add Thing' field='stroke_width'/> |
+
+</$reveal>
+
+<$reveal type=match state='$:/state/Add Thing!!add_thing' text=rect>
+
+|X Position |<$edit-text tiddler='$:/state/Add Thing' field='x_position'/> |
+|Y Position |<$edit-text tiddler='$:/state/Add Thing' field='y_position'/> |
+|Width |<$edit-text tiddler='$:/state/Add Thing' field='width'/> |
+|Height |<$edit-text tiddler='$:/state/Add Thing' field='height'/> |
+|Fill color  |<$edit-text tiddler='$:/state/Add Thing' field='fill_color'/> |
+|Fill Opacity |<$edit-text tiddler='$:/state/Add Thing' field='fill_opacity'/> |
+|Stroke Color |<$edit-text tiddler='$:/state/Add Thing' field='stroke_color'/> |
+|Stroke Width |<$edit-text tiddler='$:/state/Add Thing' field='stroke_width'/> |
+
+</$reveal>
+
+<$reveal type=match state='$:/state/Add Thing!!add_thing' text=line>
+
+''NB:'' If you don't give a positive numeric value for the stroke width the line will not be visible.
+
+|X1 |<$edit-text tiddler='$:/state/Add Thing' field='x_1'/> |
+|Y1 |<$edit-text tiddler='$:/state/Add Thing' field='y_1'/> |
+|X2 |<$edit-text tiddler='$:/state/Add Thing' field='x_2'/> |
+|Y2 |<$edit-text tiddler='$:/state/Add Thing' field='y_2'/> |
+|Fill color  |<$edit-text tiddler='$:/state/Add Thing' field='fill_color'/> |
+|Fill Opacity |<$edit-text tiddler='$:/state/Add Thing' field='fill_opacity'/> |
+|Stroke Color |<$edit-text tiddler='$:/state/Add Thing' field='stroke_color'/> |
+|Stroke Width |<$edit-text tiddler='$:/state/Add Thing' field='stroke_width'/> |
+
+</$reveal>
+
+<$reveal type=match state='$:/state/Add Thing!!add_thing' text=polygon>
+
+<table>
+	<tr>
+		<th>
+			Order
+		</th>
+		<th>
+		</th>
+		<th>
+			Location
+		</th>
+	</tr>
+	<$list filter='[[$:/state/Add Thing]list[$:/state/Add Thing!!points]]'>
+		<tr>
+			<td>
+				<$count filter='[[first]][[$:/state/Add Thing]list[$:/state/Add Thing!!points]allbefore<currentTiddler>]'/>
+			</td>
+			<td>
+				<$reveal type='nomatch' state='$:/state/Add Thing!!edit_point' text=<<currentTiddler>>>
+					<$button>
+						Edit
+						<$action-setfield $tiddler='$:/state/Add Thing' $field='edit_point' $value=<<currentTiddler>> new_point=false new_point_location=<<currentTiddler>>/>
+						<$action-setfield $tiddler={{$:/state/Add Thing!!image}} $field=editing $value=true/>
+					</$button>
+				</$reveal>
+				<$reveal type='match' state='$:/state/Add Thing!!edit_point' text=<<currentTiddler>>>
+					<$button>
+						Update
+						<$action-listops $tiddler='$:/state/Add Thing' $list=points $subfilter='[{$:/state/Add Thing!!new_point_location}]+[replace<currentTiddler>]'/>
+						<$action-setfield $tiddler={{$:/state/Add Thing!!image}} $field=play $value=false/>
+						<$action-setfield $tiddler='$:/state/Add Thing' $field='edit_point' $value=false new_point=false/>
+						<$action-setfield $tiddler={{$:/state/Add Thing!!image}} $field=editing $value=false/>
+					</$button>
+					<$button>
+						Remove
+						<$action-listops $tiddler='$:/state/Add Thing' $list=points $subfilter='+[remove<currentTiddler>]'/>
+						<$action-setfield $tiddler='$:/state/Add Thing' new_point=false/>
+						<$action-setfield $tiddler={{$:/state/Add Thing!!image}} $field=play $value=false/>
+					</$button>
+				</$reveal>
+			</td>
+			<td>
+				<$reveal type='nomatch' state='$:/state/Add Thing!!edit_point' text=<<currentTiddler>>>
+					Point: (<<currentTiddler>>)
+				</$reveal>
+				<$reveal type='match' state='$:/state/Add Thing!!edit_point' text=<<currentTiddler>>>
+					Point: ({{$:/state/Add Thing!!new_point_location}})
+				</$reveal>
+			</td>
+		</tr>
+	</$list>
+	<tr>
+		<td>
+		</td>
+		<td>
+			<$list filter='[[$:/state/Add Thing]!has[points]]'>
+				<$button>
+					Add
+					<$action-listops $tiddler='$:/state/Add Thing' $list=points $subfilter='+[append{$:/state/Add Thing!!new_point_location}]'/>
+					<$action-setfield $tiddler='$:/state/Add Thing' new_point='false' new_point_location=''/>
+					<$action-setfield $tiddler={{$:/state/Add Thing!!image}} $field=play $value=false/>
+				</$button>
+			</$list>
+			<$list filter='[[$:/state/Add Thing]has[points]]'>
+				<$button>
+					Add
+					<$action-listops $tiddler='$:/state/Add Thing' $list=points $subfilter='+[append{$:/state/Add Thing!!new_point_location}]'/>
+					<$action-setfield $tiddler='$:/state/Add Thing' new_point='false' new_point_location=''/>
+					<$action-setfield $tiddler={{$:/state/Add Thing!!image}} $field=play $value=false/>
+				</$button>
+			</$list>
+		</td>
+		<td>
+			<$reveal type='nomatch' state='$:/state/Add Thing!!new_point' text=true>
+				<$button>
+					New Point
+					<$action-setfield $tiddler='$:/state/Add Thing' $field='new_point' $value=true edit_point=false/>
+					<$action-setfield $tiddler={{$:/state/Add Thing!!image}} $field=play $value=false/>
+					<$action-setfield $tiddler='$:/state/Add Thing' $field='new_point_location' $value=''/>
+				</$button>
+			</$reveal>
+			<$reveal type='match' state='$:/state/Add Thing!!new_point' text=true>
+				({{$:/state/Add Thing!!new_point_location}})
+			</$reveal>
+		</td>
+	</tr>
+</table>
+
+|Fill color  |<$edit-text tiddler='$:/state/Add Thing' field='fill_color'/> |
+|Fill Opacity |<$edit-text tiddler='$:/state/Add Thing' field='fill_opacity'/> |
+|Stroke Color |<$edit-text tiddler='$:/state/Add Thing' field='stroke_color'/> |
+|Stroke Width |<$edit-text tiddler='$:/state/Add Thing' field='stroke_width'/> |
+
+Click on `New Point` then click on the svg surface to set the location of that point, when it is where you want (there will be a green x to show the location) click on `Add` and the point will be added to the polygon. To add more points repeat the process. When you have the points you want click on `Add Polygon` below.
+
+</$reveal>
+
+<$reveal type='nomatch' state='$:/state/Add Thing!!object_name' text=''>
+	<$vars ElementName={{$:/state/Add Thing!!object_name}} SelectedSurface={{$:/state/Add Thing!!image}} ElementType={{$:/state/Add Thing!!add_thing}}>
+		<<AddButton>>
+	</$vars>
+</$reveal>
+<$reveal type='match' state='$:/state/Add Thing!!object_name' text=''>
+	You must give the {{$:/state/Add Thing!!add_thing}} a name before adding it.
+</$reveal>

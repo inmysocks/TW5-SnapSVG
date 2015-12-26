@@ -1,0 +1,9 @@
+{
+	"title": "$:/plugins/inmysocks/SnapSVG",
+	"description": "A plugin that integrates the Snap.svg library with tiddlywiki",
+	"author": "inmysocks",
+	"version": "0.0.93",
+	"core-version": ">=5.1.9",
+	"source": "",
+	"plugin-type": "plugin"
+}

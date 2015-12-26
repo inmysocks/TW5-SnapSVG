@@ -1,0 +1,6 @@
+tags: 
+title: $:/plugins/inmysocks/SnapJS/Builtin/FullPageScrollsWithStoryRiver
+
+<div style='display:block; width:100%; position:absolute; left:0%; top:0px; height:100%;min-height:100vh; z-index: 998; pointer-events:none;'>
+<$snap-widget surface='FullPageScrollsWithStoryRiver'/>
+</div>

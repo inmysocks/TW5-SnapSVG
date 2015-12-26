@@ -1,0 +1,26 @@
+caption: Edit Action
+tags: $:/tags/SnapJS/Actions
+title: $:/plugins/inmysocks/SnapJS/Edit Action
+
+Select Action to Edit
+
+<$select tiddler='$:/temp/SnapJS/Edit Action' field='selected_action'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[tag[Action]each[action_type]get[action_type]]'>
+		<optgroup label=<<currentTiddler>>>
+			<$list filter='[tag[Action]action_type<currentTiddler>]'>
+				<option value=<<currentTiddler>>>
+					<$view field='action_name'/>
+				</option>
+			</$list>
+		</optgroup>
+	</$list>
+</$select>
+
+<$tiddler tiddler={{$:/temp/SnapJS/Edit Action!!selected_action}}>
+
+	{{||$:/plugins/inmysocks/SnapJS/Templates/ActionEditTemplate}}
+
+</$tiddler>

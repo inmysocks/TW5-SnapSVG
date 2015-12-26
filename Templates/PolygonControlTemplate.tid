@@ -1,0 +1,127 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/inmysocks/SnapJS/PolygonControlTemplate
+
+\define thisMakeSVG()
+<svg id={{!!element_name}} height="$(Height)$" width="$(Width)$">
+	<polygon
+		points="""$(Points)$"""
+		stroke-width="$(StrokeWidth)$"
+		stroke="#$(StrokeColor)$"
+		fill="#$(FillColor)$"
+transform="rotate($(Rotation)$)scale($(Scale)$)">
+	</polygon>
+</svg>
+\end
+
+<$list filter='[is[current]element_type[polygon]]'>
+
+<$vars StrokeColor={{!!stroke_color}} FillColor={{!!fill_color}} Points={{!!points}} StrokeWidth={{!!stroke_width}} Rotation={{!!rotation}} Scale={{!!scale}} TranslateX={{!!cx}} TranslateY={{!!cy}} Height={{!!view_height}} Width={{!!view_width}}>
+<<thisMakeSVG>>
+</$vars>
+
+Rotate and scale don't work as expected with polygons in this view. They work when polygons are put in other images.
+
+You can not drag dragable elements in this view, changes to location here changes the default location for the element.
+
+View height and width control the size of the SVG surface used here to show this element. It has no effect on other surfaces or using the element in an image.<br>
+Set View Height <$edit-text field=view_height/>
+Set View Width: <$edit-text field=view_width/>
+
+<$checkbox field='dragable' checked=true unchecked=false>Dragable</$checkbox>
+
+X Position: <$range field='x_position' min=1 max=750 step=5/><br>
+Y Position: <$range field='y_position' min=1 max=750 step=5/><br>
+Rotation: <$range field='rotation' min='-180' max=180 step=1/> (<$edit-text field='rotation' size=2/> degrees)<br>
+Scale: <$range field='scale' min=0.1 max=10 step=0.01/> (<$edit-text field='scale' size=2/>)<br>
+
+This doesn't work yet
+
+Edit Surface: <$select tiddler=<<currentTiddler>> field='edit_surface'>
+<option>--</option>
+<$list filter='[is[current]tags[]]-[[SVG Element]]'>
+<option><<currentTiddler>></option>
+</$list>
+</$select>
+
+<$set name=ContainingTiddler value=<<currentTiddler>>>
+<table>
+<tr>
+  <th>
+  	Order
+  </th>
+  <th>
+  </th>
+  <th>
+    Location
+  </th>
+</tr>
+<$list filter='[<currentTiddler>list[!!points]]' variable=ThisPoint>
+<tr>
+  <td>
+    <$count filter='[[first]][<ContainingTiddler>list[!!points]allbefore<ThisPoint>]'/>
+  </td>
+  <td>
+    <$reveal type='nomatch' state='!!edit_point' text=<<ThisPoint>>>
+      <$button>
+        Edit
+        <$action-setfield $tiddler=<<ContainingTiddler>> $field='edit_point' $value=<<ThisPoint>> new_point=false new_point_location=<<ThisPoint>>/>
+<$action-setfield $tiddler='$:/state/EditPolygon' editing='true' element={{!!element_name}} tiddler=<<currentTiddler>>/>
+      </$button>
+    </$reveal>
+    <$reveal type='match' state='!!edit_point' text=<<ThisPoint>>>
+      <$button>
+        Update
+        <$action-setfield $tiddler=<<ContainingTiddler>> $field='edit_point' $value=false new_point=false/>
+        <$action-listops $tiddler=<<ContainingTiddler>> $list=points $subfilter='[{!!new_point_location}]+[replace<ThisPoint>]'/>
+      </$button>
+      <$button>
+        Remove
+        <$action-listops $tiddler=<<ContainingTiddler>> $list=points $subfilter='+[remove<ThisPoint>]'/>
+        <$action-setfield $tiddler=<<ContainingTiddler>> new_point=false/>
+      </$button>
+    </$reveal>
+  </td>
+  <td>
+  	<$reveal type='nomatch' state='$:/state/Add Thing!!edit_point' text=<<ThisPoint>>>
+    	Point: (<<ThisPoint>>)
+    </$reveal>
+    <$reveal type='match' state='!!edit_point' text=<<ThisPoint>>>
+    	Point: ({{!!new_point_location}})
+    </$reveal>
+  </td>
+</tr>
+</$list>
+<tr>
+  <td>
+  </td>
+  <td>
+  	<$list filter='[<ContainingTiddler>!has[points]]'>
+    	<$button>Add<$action-listops $tiddler=<<ContainingTiddler>> $list=points $subfilter='+[append{!!new_point_location}]'/><$action-setfield $tiddler=<<ContainingTiddler>> new_point='false'/></$button>
+    </$list>
+    <$list filter='[<ContainingTiddler>has[points]]'>
+    	<$button>Add<$action-listops $tiddler=<<ContainingTiddler>> $list=points $subfilter='+[append{!!new_point_location}]'/><$action-setfield $tiddler=<<ContainingTiddler>> new_point='false'/></$button>
+    </$list>
+  </td>
+  <td>
+    <$reveal type='nomatch' state='!!new_point' text=true>
+      <$button>New Point<$action-setfield $tiddler=<<ContainingTiddler>> $field='new_point' $value=true edit_point=false/></$button>
+      <$action-setfield $tiddler=<<ContainingTiddler>> $field='new_point_location' $value=''/>
+    </$reveal>
+    <$reveal type='match' state='!!new_point' text=true>
+      ({{!!new_point_location}})
+    </$reveal>
+  </td>
+</tr>
+
+</table>
+</$set>
+
+Rotation: <$range field='rotation' min='-180' max=180 step=1/> (<$edit-text field='rotation' size=2/> degrees)<br>
+Scale: <$range field='scale' min=0.1 max=10 step=0.01/> (<$edit-text field='scale' size=2/>)<br>
+Fill Color: <$edit-text field='fill_color'/><br>
+Fill Opacity: <$edit-text field='fill_opacity'/><br>
+Stroke Color: <$edit-text field='stroke_color'/><br>
+Stroke Width: <$edit-text field='stroke_width'/><br>
+Layer: <$edit-text field='order'/> (Higher numbers cover lower numbers)<br>
+Class: <$edit-text field='class'/><br>
+</$list>

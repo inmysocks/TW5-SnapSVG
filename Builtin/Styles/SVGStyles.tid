@@ -1,0 +1,6 @@
+tags: $:/tags/Stylesheet
+title: $:/plugins/inmysocks/SnapJS/Builtin/SVGStyles
+
+html .svg-clickable { pointer-events:auto; }
+
+html .svg-notclickable { pointer-events:none; }

@@ -1,0 +1,84 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/inmysocks/SnapJS/Templates/ActionEditTemplate
+
+<$list filter='[is[current]tag[Action]]'>
+	<$reveal type='match' state='!!action_type' text=Button>
+
+		<$edit-text class='tc-edit-texteditor'/>
+
+	</$reveal>
+
+	<$reveal type='match' state='!!action_type' text='Click Event'>
+
+		Action 
+		<$select tiddler={{$:/temp/SnapJS/Edit Action!!selected_action}} field='action_tiddler'>
+			<option value=''>
+				--
+			</option>
+			<$list filter='[tag[Action]]'>
+				<option value=<<currentTiddler>>>
+					<$view field='action_name'/>
+				</option>
+			</$list>
+		</$select>
+
+		<$radio tiddler={{$:/temp/SnapJS/Edit Action!!selected_action}} field='target_type' value="Element">Element</$radio>
+		<$radio tiddler={{$:/temp/SnapJS/Edit Action!!selected_action}} field='target_type' value="Group">Group</$radio>
+
+		Target Object 
+		<$select tiddler={{$:/temp/SnapJS/Edit Action!!selected_action}} field='target_object'>
+			<option value=''>
+				--
+			</option>
+			<$list filter='[object_type{!!target_type}]'>
+				<option>
+					<$view field='object_name'/>
+				</option>
+			</$list>
+		</$select>
+
+	</$reveal>
+
+	<$reveal type='match' state='!!action_type' text=Write>
+
+		Target Tiddler
+		<$edit-text tiddler={{$:/temp/SnapJS/Edit Action!!selected_action}} field=target_tiddler class='tc-edit-texteditor'/>
+
+		Target Field
+		<$edit-text tiddler={{$:/temp/SnapJS/Edit Action!!selected_action}} field=target_field class='tc-edit-texteditor'/>
+
+		Target Value
+		<$edit-text tiddler={{$:/temp/SnapJS/Edit Action!!selected_action}} field=target_value class='tc-edit-texteditor'/>
+
+	</$reveal>
+
+	<$reveal type='match' state='!!action_type' text=Animation>
+		There is nothing to modify here, change the animation itself or make a new action.
+	</$reveal>
+
+	<$reveal type='match' state='!!action_type' text=Batch>
+
+		Action List
+
+		<$list filter='[{$:/temp/SnapJS/Edit Action!!selected_action}indexes[]]'>
+			<$view field='action_name'/><br>
+		</$list>
+
+		Add Action
+		<$select tiddler='$:/temp/SnapJS/Edit Action' field=add_action>
+			<option value=''>
+				--
+			</option>
+			<$list filter='[tag[Action]]'>
+				<option value=<<currentTiddler>>>
+					<$view field='action_name'/>
+				</option>
+			</$list>
+		</$select>
+		<$button>
+			Add Action
+			<$action-setfield $tiddler={{$:/temp/SnapJS/Edit Action!!selected_action}} $index={{$:/temp/SnapJS/Edit Action!!add_action}} $value=1/>
+		</$button>
+
+	</$reveal>
+</$list>

@@ -1,0 +1,64 @@
+caption: Make Group
+title: $:/plugins/inmysocks/SnapJS/Make Group
+
+\define thisAddGroupButton()
+<$button>Add Group
+<$action-setfield $tiddler="""$:/SVG Group/$(GroupName)$""" tags={{$:/state/Make Group!!tags}} object_type='Group' dragable={{$:/state/Make Group!!dragable}} object_name={{$:/state/Make Group!!object_name}} image={{$:/state/Make Group!!selected_surface}} rotation=0 xc=0 yc=0 object_type=Group/>
+<$action-setfield $tiddler='$:/state/Make Group' tags='' object_name=''/>
+</$button>
+\end
+
+\define thisEmptyMessage()
+<$button class='tc-btn-invisible'>
+	<input type=checkbox/>
+	<$view tiddler=<<CurrentElement>> field='object_name'/>
+	<$action-sendmessage $message=tm-add-tag $param=<<CurrentElement>>/>
+</$button>
+\end
+
+Group Name:
+<$edit-text tiddler='$:/state/Make Group' field='object_name' class='tc-edit-texteditor'/>
+
+<$checkbox tiddler='$:/state/Make Group' field='dragable' checked=true unchecked=false>Dragable</$checkbox>
+
+Select Image:
+
+<$select tiddler='$:/state/Make Group' field=selected_surface>
+<option value=''>All</option>
+<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+<option value=<<currentTiddler>>><$view field='title'/></option>
+</$list>
+</$select>
+
+Add Elements to Group:
+
+<$select tiddler='$:/state/Make Group' field='elemet_to_add'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[object_type[Element]has[object_name]has[element_type]each[element_type]get[element_type]]' variable=ElementType>
+		<optgroup label=<<ElementType>>>
+			<$list filter='[[$:/state/Make Group]has[selected_surface]]' emptyMessage="""<$list filter='[object_type[Element]element_type<ElementType>]'><option value=<<currentTiddler>>><$view field=object_name/></option></$list>""">
+				<$list filter='[object_type[Element]element_type<ElementType>tag{$:/state/Make Group!!selected_surface}]'>
+					<option value=<<currentTiddler>>>
+						<$view field=object_name/>
+					</option>
+				</$list>
+			</$list>
+		</optgroup>
+	</$list>
+</$select>
+
+<$fieldmangler tiddler='$:/state/Make Group'>
+<$button>Add<$action-sendmessage $message='tm-add-tag' $param={{$:/state/Make Group!!elemet_to_add}}/></$button>
+</$fieldmangler>
+
+Current elements:
+
+<$list filter='[[$:/state/Make Group]tags[]]' variable=CurrentElement>
+	<$checkbox tiddler='$:/state/Make Group' tag=<<CurrentElement>>><$view tiddler=<<CurrentElement>> field='object_name'/></$checkbox><br>
+</$list>
+
+<$set name=GroupName value={{$:/state/Make Group!!object_name}}>
+<<thisAddGroupButton>>
+</$set>

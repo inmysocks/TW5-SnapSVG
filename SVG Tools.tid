@@ -1,0 +1,5 @@
+caption: SVG Tools
+tags: $:/tags/SideBar
+title: $:/plugins/inmysocks/SnapJS/SVG Tools
+
+<<tabs "[[$:/plugins/inmysocks/SnapJS/Add Element]][[$:/plugins/inmysocks/SnapJS/Make Group]][[$:/plugins/inmysocks/SnapJS/Animation]][[$:/plugins/inmysocks/SnapJS/Images]][[$:/plugins/inmysocks/SnapJS/EditObjects]][[$:/plugins/inmysocks/SnapJS/Actions]]" default:'$:/plugins/inmysocks/SnapJS/Add Element'>>

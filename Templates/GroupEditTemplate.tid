@@ -1,0 +1,40 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/inmysocks/SnapJS/GroupEditTemplate
+
+<$list filter='[is[current]object_type[Group]]' variable=dummy>
+
+<$checkbox field=dragable checked=true unchecked=false>Dragable</$checkbox>
+
+Rotation: <$range field='rotation' min='-180' max=180 step=1/> (<$edit-text field='rotation' size=2/> degrees)<br>
+Scale: <$range field='scale' min=0.1 max=10 step=0.01/> (<$edit-text field='scale' size=2/>)<br>
+Layer: <$edit-text field='order'/> (Higher numbers cover lower numbers)<br>
+Class: <$edit-text field='class'/><br>
+
+Add Elements to Group:
+
+<$select tiddler='$:/state/Make Group' field='elemet_to_add'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[object_type[Element]has[object_name]has[element_type]each[element_type]get[element_type]]' variable=ElementType>
+		<optgroup label=<<ElementType>>>
+			<$list filter='[object_type[Element]element_type<ElementType>]'>
+				<option value=<<currentTiddler>>
+					><$view field=object_name/>
+				</option>
+			</$list>
+		</optgroup>
+	</$list>
+</$select>
+
+<$fieldmangler tiddler=<<currentTiddler>>>
+<$button>Add<$action-sendmessage $message='tm-add-tag' $param={{$:/state/Make Group!!elemet_to_add}}/></$button>
+</$fieldmangler>
+
+Current elements:
+
+<$list filter='[<currentTiddler>tags[]]' variable=CurrentElement>
+	<$checkbox tag=<<CurrentElement>>><$view tiddler=<<CurrentElement>> field='object_name'/></$checkbox><br>
+</$list>
+
+</$list>

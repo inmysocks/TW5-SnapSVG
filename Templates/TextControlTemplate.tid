@@ -1,0 +1,21 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/inmysocks/SnapJS/TextControlTemplate
+
+<$list filter='[is[current]tag[SVG Element]element_type[text]]'>
+
+<$checkbox field='dragable' checked=true unchecked=false>Dragable</$checkbox>
+
+X Position: <$range field='x_position' min=1 max=750 step=5/><br>
+Y Position: <$range field='y_position' min=1 max=750 step=5/><br>
+Rotation: <$range field='rotation' min='-180' max=180 step=1/> (<$edit-text field='rotation' size=2/> degrees)<br>
+Scale: <$range field='scale' min=0.1 max=10 step=0.01/> (<$edit-text field='scale' size=2/>)<br>
+
+Fill Color: <$edit-text field='fill_color'/><br>
+Fill Opacity: <$edit-text field='fill_opacity' class='tc-edit-texteditor'/><br>
+Stroke Color: <$edit-text field='stroke_color' class='tc-edit-texteditor'/><br>
+Stroke Width: <$edit-text field='stroke_width' class='tc-edit-texteditor'/><br>
+Layer: <$edit-text field='order' class='tc-edit-texteditor'/> (Higher numbers cover lower numbers)<br>
+Class: <$edit-text field='class' class='tc-edit-texteditor'/><br>
+
+Text: <$edit-text field=text class='tc-edit-texteditor'/><br>
+</$list>
