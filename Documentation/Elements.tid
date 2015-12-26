@@ -1,0 +1,19 @@
+created: 20151226183119016
+modified: 20151226185213916
+title: $:/plugins/inmysocks/SnapJS/documentation/Elements
+
+The basic parts of an svg image are elements, elements are the smallest part of the image that can be manipulated individually.
+
+All elements have the following properties:
+
+* `dragable` - this sets if the element is draggable (moveable by clicking and dragging) on the surface or not
+* `x position` - The horizontal position of the element on the surface, given is css units (px, %, em, vh, vw, etc.)
+* `y position` - the vertical position of the element on the surface, given is css units (px, %, em, vh, vw, etc.)
+* `rotation` - the rotation of the element in degrees
+* `scale` - the element is scaled by this value, a numeric value greater than or equal to 0
+* `fill color` - the color the shape is filled with, a css color value
+* `fill opacity` - the opacity of the fill color, a value in [0,1]
+* `stroke color` - the color of the stroke (outline) of the element. a css color value
+* `stroke width` - the width of the element stroke, a numeric value greater than or equaul to 0
+* `layer` - this sets the order that elements are added to the surface, elements with higher numbers cover those with lower numbers, integer numeric value
+* `class` - an optional css class to add to the element

@@ -1,0 +1,22 @@
+created: 20151226183446758
+modified: 20151226190530891
+title: $:/plugins/inmysocks/SnapJS/documentation/Types of elements
+
+These are the 
+
+* Circle
+** A circle has a `radius` attribute in addition to the attributes common to all element
+*Ellipse
+** An ellipse has an x radius and a y radius 
+* Rectangle
+** A rectangle has a width and height
+* Line
+** A line is given x1, y1, x2 and y2 defining the start and end points of the 
+* Polygon
+** Polygons are special, I will write something about them later
+* Text
+** Enter the text to display
+* SVG Image from a tiddler
+** This takes the name of the tiddler that contains the svg image to add as well as a height and width for the displayed image. Images are scaled to the given height and width
+* External
+** This takes the URI of an external image, it can take both SVG and raster images. This also takes a height and width value for the added image. The image is scaled to fit into the given dimensions.

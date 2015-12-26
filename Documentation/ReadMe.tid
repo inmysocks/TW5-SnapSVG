@@ -1,0 +1,59 @@
+created: 20151226180129989
+modified: 20151226215550444
+tags: 
+title: $:/plugins/inmysocks/SnapJS/ReadMe
+
+''For static images''
+
+You make surfaces then add elements to them, you can optionally create groups of elements. You can make elements and groups draggable if you wish to move them after they are placed. That is everything for static images.
+
+''Animations and actions''
+
+You can animate either groups or single elements. You need to define an animation and define the action that triggers the animation.
+
+Animations can also be triggered by other animations ending so you can chain them together.
+
+when an animation is set as enabled and is on a surface that has type set to animation than it will play when the surface is rendered. there are some other things I need to list here like play needs to be set to true and finished needs to be set to false on all the animations and refresh needs to be set to true. Then you can restart the animation by setting all the animation tiddlers finished fields to false and set the refresh field of the image tiddler to true.
+
+Actions can also be tied to input events to make the svg elements interactive.
+
+''Transforms''
+
+Transforms can be defined and reused with different objects. An object can have its own state including, scale, location, rotation, etc. and then on top of that the transform can be applied. Transforms can also be used with animations. You can also invert transforms to make reversable motion. This can be used for things like having a button zoom a bit when you hover and then return to normal when the mouse moves out.
+
+''Input Events''
+
+Input events are what you add to the svg object to allow interaction. 
+
+Draggable objects are the most basic form of this, for the moment when you drag an element its position is saved in the wiki to make the movement persistent. In the future I may add options to modify the behavior when an object is dragged.
+
+You can add a click event to an object as well. When you do this you can make it trigger an action you have defined. By using this with a button-type action you can create buttons on the svg surface that act similarly to button widgets.
+
+There are also double click events, they act the same as click event in every way other than they are triggered by a double click on the object instead of a single click.
+
+To be added: Hover events, right click events, maybe others.
+
+*[[Surfaces|$:/plugins/inmysocks/SnapJS/documentation/Surfaces]]
+*[[Elements|$:/plugins/inmysocks/SnapJS/documentation/Elements]]
+**[[Types of elements|$:/plugins/inmysocks/SnapJS/documentation/Types of elements]]
+**[[Adding Elements|$:/plugins/inmysocks/SnapJS/documentation/Adding Elements]]
+*[[Groups|$:/plugins/inmysocks/SnapJS/documentation/Groups]]
+**[[Adding Groups|$:/plugins/inmysocks/SnapJS/documentation/Adding Groups]]
+*[[Animation|$:/plugins/inmysocks/SnapJS/documentation/Animation]]
+*[[Actions|$:/plugins/inmysocks/SnapJS/documentation/Actions]]
+**[[Add Click Event|$:/plugins/inmysocks/SnapJS/documentation/Add Click Event]]
+**[[Remove Click Event|$:/plugins/inmysocks/SnapJS/documentation/Remove Click Event]]
+**[[Add Double Click Event|$:/plugins/inmysocks/SnapJS/documentation/Add Double Click Event]]
+**[[Remove Double Click Event|$:/plugins/inmysocks/SnapJS/documentation/Remove Double Click Event]]
+**[[Add Hover Event|$:/plugins/inmysocks/SnapJS/documentation/Add Hover Event]]
+**[[Remove Hover Event|$:/plugins/inmysocks/SnapJS/documentation/Remove Hover Event]]
+**[[Add Object|$:/plugins/inmysocks/SnapJS/documentation/Add Object]]
+**[[Remove Object|$:/plugins/inmysocks/SnapJS/documentation/Remove Object]]
+**[[Start Animation|$:/plugins/inmysocks/SnapJS/documentation/Start Animation]]
+**[[Button|$:/plugins/inmysocks/SnapJS/documentation/Button]]
+**[[Write|$:/plugins/inmysocks/SnapJS/documentation/Write]]
+**[[Batch Actions|$:/plugins/inmysocks/SnapJS/documentation/Batch Actions]]
+*[[Input Events|$:/plugins/inmysocks/SnapJS/documentation/Input Events]]
+**[[Click Event|$:/plugins/inmysocks/SnapJS/documentation/Click Event]]
+**[[Double Click Event|$:/plugins/inmysocks/SnapJS/documentation/Double Click Event]]
+**[[Hover Event|$:/plugins/inmysocks/SnapJS/documentation/Hover Event]]

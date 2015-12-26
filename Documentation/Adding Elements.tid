@@ -1,0 +1,13 @@
+created: 20151226190629713
+modified: 20151226192156391
+title: $:/plugins/inmysocks/SnapJS/documentation/Adding Elements
+
+Elements are added using the `Add Element` tab under the `SVG Tools` tab in the page toolbar.
+
+# To add an element, use the dropdown menu to select the image tiddler (svg surface) you with to add the element to.
+# Use the second drop-down menu to pick which item type to add.
+# Give the element a name using the text entry box
+# Optionally, give a css class for the element. The classes svg-clickable and svg-notclickable may be of interest. If the class svg-notclickable make it so you can not click on the element, the class svg-clickable make it so you can click on the element. The builtin surfaces that cover the entire wiki are both set to non-clickable so any elements you put on those surfaces need to be set to svg-clickable if you wish to be able to interact with it.
+# You can set if the element is clickable or not using the check box.
+# The rest of the fields are listed below and can be filled out.
+# Once the fields are filled out click on the `Add $(Element Type)$` button to add the element.

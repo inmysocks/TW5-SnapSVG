@@ -1,0 +1,16 @@
+created: 20151226180452501
+modified: 20151226182821360
+title: $:/plugins/inmysocks/SnapJS/documentation/Surfaces
+
+A Surface what SVG images are displayed on. For this plugin a surface is a tiddler tagged with [[SVG Image]]. This tiddler will display the image and has some control options. Most important are the inputs for setting the height and width of the image created. 
+
+There is also an `Animate` option that is used for controlling animations.
+
+To display the image in other places you use the snap-widget widget. It can take 3 arguments:
+
+* `surface` - this is the name of the image tiddler 
+* `type` - this can be left blank, set to animation or set to timeline
+
+in any tiddler where you want to display the image put:
+
+`<$snap-widget surface=ImageTiddlerName/>`
