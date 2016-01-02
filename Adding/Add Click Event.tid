@@ -1,54 +1,88 @@
 caption: Add Click Event
-tags: $:/tags/SnapJS/Actions
-title: $:/plugins/inmysocks/SnapJS/Add Click Event
+revision: 0
+tags: $:/tags/SnapSVG/Actions
+title: $:/plugins/inmysocks/SnapSVG/Add Click Event
+type: text/vnd.tiddlywiki
 
 \define thisAddClickEventButton()
 <$button>Add Click Event
-<$action-setfield $tiddler="""$:/SVG Click Event/$(SVGImage)$/$(ClickEventName)$""" action_type='Click Event' target_object="""$(TargetObject)$""" target_type="""$(TargetType)$""" action_tiddler={{$:/temp/SnapJS/Add Click Event!!selected_action}} tags="""Action [[$(SVGImage)$]]"""/>
-<$action-setfield $tiddler='$:/temp/SnapJS/Add Click Event' event_name=''/>
+	<$action-setfield 
+		$tiddler="""$:/SVG Click Event/$(SVGImage)$/$(ClickEventName)$""" 
+		action_tiddler={{$:/temp/SnapSVG/Add Click Event!!selected_action}} 
+		event_name={{$:/temp/SnapSVG/Add Click Event!!event_name}}
+		event_type='Click Event' 
+		target_type="""$(TargetType)$""" 
+		target_object="""$(TargetObject)$""" 
+		tags="""[[Input Event]]"""
+	/>
+	<$action-setfield 
+		$tiddler='$:/temp/SnapSVG/Add Click Event' 
+		event_name=''
+	/>
 </$button>
 \end
 
 Event Name:
-<$edit-text tiddler='$:/temp/SnapJS/Add Click Event' field='event_name' class='tc-edit-texteditor'/>
+<$edit-text tiddler='$:/temp/SnapSVG/Add Click Event' field='event_name' class='tc-edit-texteditor'/>
 
 Event Target:
 
-Image <$select tiddler='$:/temp/SnapJS/Add Click Event' field=selected_image>
-<option value=''>--</option>
-<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
-<option value=<<currentTiddler>>><$view field='title'/></option>
-</$list>
+Image <$select tiddler='$:/temp/SnapSVG/Add Click Event' field=selected_image>
+	<option value=''>--</option>
+	<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='title'/>
+		</option>
+	</$list>
 </$select>
 
-Object Type <$radio tiddler='$:/temp/SnapJS/Add Click Event' field='target_type' value='Group'>Group</$radio> <$radio tiddler='$:/temp/SnapJS/Add Click Event' field='target_type' value='Element'>Element</$radio>
+Object Type <$radio tiddler='$:/temp/SnapSVG/Add Click Event' field='target_type' value='Group'>Group</$radio> <$radio tiddler='$:/temp/SnapSVG/Add Click Event' field='target_type' value='Element'>Element</$radio>
 
-<$reveal type=match state='$:/temp/SnapJS/Add Click Event!!target_type' text='Element'>
-Object <$select tiddler='$:/temp/SnapJS/Add Click Event' field=selected_object>
-<option value=''>--</option>
-<$list filter='[tag[SVG Element]tag{$:/temp/SnapJS/Add Click Event!!selected_image}]'>
-<option><$view field='object_name'/></option>
-</$list>
-</$select>
+<$reveal type=match state='$:/temp/SnapSVG/Add Click Event!!target_type' text='Element'>
+	Object 
+	<$select tiddler='$:/temp/SnapSVG/Add Click Event' field=selected_object>
+		<option value=''>
+			--
+		</option>
+		<$list filter='[tag[SVG Element]tag{$:/temp/SnapSVG/Add Click Event!!selected_image}]'>
+			<option>
+				<$view field='object_name'/>
+			</option>
+		</$list>
+	</$select>
 </$reveal>
 
-<$reveal type=match state='$:/temp/SnapJS/Add Click Event!!target_type' text='Group'>
-Object <$select tiddler='$:/temp/SnapJS/Add Click Event' field=selected_object>
-<option value=''>--</option>
-<$list filter='[object_type[Group]]'>
-<option><$view field='object_name'/></option>
-</$list>
-</$select>
+<$reveal type=match state='$:/temp/SnapSVG/Add Click Event!!target_type' text='Group'>
+	Object 
+	<$select tiddler='$:/temp/SnapSVG/Add Click Event' field=selected_object>
+		<option value=''>
+			--
+		</option>
+		<$list filter='[object_type[Group]]'>
+			<option>
+				<$view field='object_name'/>
+			</option>
+		</$list>
+	</$select>
 </$reveal>
 
 Action:
-<$select tiddler='$:/temp/SnapJS/Add Click Event' field=selected_action>
-<option value=''>--</option>
-<$list filter='[tag[Action]tag{$:/temp/SnapJS/Add Click Event!!selected_image}]'>
-<option value=<<currentTiddler>>><$view field='action_name'/></option>
-</$list>
+<$select tiddler='$:/temp/SnapSVG/Add Click Event' field=selected_action>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[tag[Action]tag{$:/temp/SnapSVG/Add Click Event!!selected_image}]'>
+		<option value=<<currentTiddler>>>
+			<$view field='action_name'/>
+		</option>
+	</$list>
 </$select>
 
-<$vars SVGImage={{$:/temp/SnapJS/Add Click Event!!selected_image}} ClickEventName={{$:/temp/SnapJS/Add Click Event!!event_name}} TargetObject={{$:/temp/SnapJS/Add Click Event!!selected_object}} TargetType={{$:/temp/SnapJS/Add Click Event!!target_type}}>
-<<thisAddClickEventButton>>
+<$vars 
+	SVGImage={{$:/temp/SnapSVG/Add Click Event!!selected_image}} 
+	ClickEventName={{$:/temp/SnapSVG/Add Click Event!!event_name}} 
+	TargetObject={{$:/temp/SnapSVG/Add Click Event!!selected_object}} 
+	TargetType={{$:/temp/SnapSVG/Add Click Event!!target_type}}
+>
+	<<thisAddClickEventButton>>
 </$vars>

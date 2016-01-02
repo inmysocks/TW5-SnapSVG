@@ -1,5 +1,5 @@
 tags: $:/tags/Stylesheet
-title: $:/plugins/inmysocks/SnapJS/Builtin/SVGStyles
+title: $:/plugins/inmysocks/SnapSVG/Builtin/SVGStyles
 
 html .svg-clickable { pointer-events:auto; }
 

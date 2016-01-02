@@ -1,5 +1,3 @@
-created: 20151226192239984
-modified: 20151226192336927
-title: $:/plugins/inmysocks/SnapJS/documentation/Groups
+title: $:/plugins/inmysocks/SnapSVG/documentation/Groups
 
 Groups are collections of other svg objects (elements and groups) that can be manipulated as a unit.

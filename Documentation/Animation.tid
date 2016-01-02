@@ -1,6 +1,4 @@
-created: 20151226193254455
-modified: 20151226195041626
-title: $:/plugins/inmysocks/SnapJS/documentation/Animation
+title: $:/plugins/inmysocks/SnapSVG/documentation/Animation
 
 Transitions between one set of attributes and another can be animated. To create animations you define the desired final state and then set parameters for the transition to that state.
 

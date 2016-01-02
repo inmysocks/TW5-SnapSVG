@@ -1,6 +1,8 @@
 caption: SVG Contents
+revision: 0
 tags: $:/tags/SideBar
-title: $:/plugins/inmysocks/SnapJS/SVG Contents
+title: $:/plugins/inmysocks/SnapSVG/SVG Contents
+type: text/vnd.tiddlywiki
 
 !!Images
 
@@ -8,19 +10,19 @@ title: $:/plugins/inmysocks/SnapJS/SVG Contents
 <<toc-selective-expandable "SVG Image">>
 </div>
 
-<$reveal type='nomatch' state='$:/state/SVG Contents/Elements' text=show>
+<$reveal type='nomatch' state='$:/state/SVG Contents/Elements' text='show'>
 
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Elements' setTo=show>{{$:/core/images/right-arrow}}Elements</$button>
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Elements' setTo='show'>{{$:/core/images/right-arrow}}Elements</$button>
 
 </$reveal>
 
-<$reveal type='match' state='$:/state/SVG Contents/Elements' text=show>
+<$reveal type='match' state='$:/state/SVG Contents/Elements' text='show'>
 
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Elements' setTo=hide>{{$:/core/images/down-arrow}}Elements</$button>
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Elements' setTo='hide'>{{$:/core/images/down-arrow}}Elements</$button>
 
 <$list filter='[tag[SVG Element]each[element_type]get[element_type]]'>
 
-!!!<<currentTiddler>>
+!!!__<<currentTiddler>>__
 
 <$list filter='[tag[SVG Element]element_type<currentTiddler>]'>
 <$link to=<<currentTiddler>>><$view field='object_name'/></$link><br>
@@ -29,15 +31,15 @@ title: $:/plugins/inmysocks/SnapJS/SVG Contents
 
 </$reveal>
 
-<$reveal type='nomatch' state='$:/state/SVG Contents/Groups' text=show>
+<$reveal type='nomatch' state='$:/state/SVG Contents/Groups' text='show'>
 
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Groups' setTo=show>{{$:/core/images/right-arrow}}Groups</$button>
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Groups' setTo='show'>{{$:/core/images/right-arrow}}Groups</$button>
 
 </$reveal>
 
-<$reveal type='match' state='$:/state/SVG Contents/Groups' text=show>
+<$reveal type='match' state='$:/state/SVG Contents/Groups' text='show'>
 
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Groups' setTo=hide>{{$:/core/images/down-arrow}}Groups</$button>
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Groups' setTo='hide'>{{$:/core/images/down-arrow}}Groups</$button>
 
 <$list filter='[object_type[Group]]'>
 <$link to=<<currentTiddler>>><$view field='object_name'/></$link><br>
@@ -45,15 +47,31 @@ title: $:/plugins/inmysocks/SnapJS/SVG Contents
 
 </$reveal>
 
-<$reveal type='nomatch' state='$:/state/SVG Contents/Animations' text=show>
+<$reveal type='nomatch' state='$:/state/SVG Contents/Transforms' text='show'>
 
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Animations' setTo=show>{{$:/core/images/right-arrow}}Animations</$button>
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Transforms' setTo='show'>{{$:/core/images/right-arrow}}Transforms</$button>
 
 </$reveal>
 
-<$reveal type='match' state='$:/state/SVG Contents/Animations' text=show>
+<$reveal type='match' state='$:/state/SVG Contents/Transforms' text='show'>
 
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Animations' setTo=hide>{{$:/core/images/down-arrow}}Animations</$button>
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Transforms' setTo='hide'>{{$:/core/images/down-arrow}}Transforms</$button>
+
+<$list filter='[tag[SVG Transform]]'>
+<$link to=<<currentTiddler>>><$view field='transform_name'/></$link><br>
+</$list>
+
+</$reveal>
+
+<$reveal type='nomatch' state='$:/state/SVG Contents/Animations' text='show'>
+
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Animations' setTo='show'>{{$:/core/images/right-arrow}}Animations</$button>
+
+</$reveal>
+
+<$reveal type='match' state='$:/state/SVG Contents/Animations' text='show'>
+
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Animations' setTo='hide'>{{$:/core/images/down-arrow}}Animations</$button>
 
 <$list filter='[tag[Animation]]'>
 <$link to=<<currentTiddler>>><$view field='animation_name'/></$link><br>
@@ -61,34 +79,46 @@ title: $:/plugins/inmysocks/SnapJS/SVG Contents
 
 </$reveal>
 
-<$reveal type='nomatch' state='$:/state/SVG Contents/Actions' text=show>
+<$reveal type='nomatch' state='$:/state/SVG Contents/Actions' text='show'>
 
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Actions' setTo=show>{{$:/core/images/right-arrow}}Actions</$button>
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Actions' setTo='show'>{{$:/core/images/right-arrow}}Actions</$button>
 
 </$reveal>
 
-<$reveal type='match' state='$:/state/SVG Contents/Actions' text=show>
+<$reveal type='match' state='$:/state/SVG Contents/Actions' text='show'>
 
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Actions' setTo=hide>{{$:/core/images/down-arrow}}Actions</$button>
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Actions' setTo='hide'>{{$:/core/images/down-arrow}}Actions</$button>
 
-<$list filter='[tag[Action]!action_type[Click Event]]'>
+<$list filter='[tag[Action]has[action_type]each[action_type]get[action_type]]' variable='ThisActionType'>
+
+__<<ThisActionType>>__
+
+<$list filter='[tag[Action]action_type<ThisActionType>]'>
 <$link to=<<currentTiddler>>><$view field='action_name'/></$link><br>
+</$list>
+
 </$list>
 
 </$reveal>
 
-<$reveal type='nomatch' state='$:/state/SVG Contents/Click Actions' text=show>
+<$reveal type='nomatch' state='$:/state/SVG Contents/Input Events' text='show'>
 
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Click Actions' setTo=show>{{$:/core/images/right-arrow}}Click Actions</$button>
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Input Events' setTo='show'>{{$:/core/images/right-arrow}} Input Events</$button>
 
 </$reveal>
 
-<$reveal type='match' state='$:/state/SVG Contents/Click Actions' text=show>
+<$reveal type='match' state='$:/state/SVG Contents/Input Events' text='show'>
 
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Click Actions' setTo=hide>{{$:/core/images/down-arrow}}Click Actions</$button>
+!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Input Events' setTo='hide'>{{$:/core/images/down-arrow}} Input Events</$button>
 
-<$list filter='[tag[Action]action_type[Click Event]]'>
-<$link to=<<currentTiddler>>><$view field='action_name'/></$link><br>
+<$list filter='[tag[Input Event]has[event_type]each[event_type]get[event_type]]' variable='ThisInputType'>
+
+__<<ThisInputType>>__
+
+<$list filter='[tag[Input Event]event_type<ThisInputType>]'>
+<$link to=<<currentTiddler>>><$view field='event_name'/></$link><br>
+</$list>
+
 </$list>
 
 </$reveal>

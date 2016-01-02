@@ -1,5 +1,5 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapJS/SVGTiddlerControlTemplate
+title: $:/plugins/inmysocks/SnapSVG/SVGTiddlerControlTemplate
 
 <$list filter='[is[current]element_type[tiddler]]'>
 

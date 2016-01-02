@@ -1,10 +1,31 @@
 caption: Make Group
-title: $:/plugins/inmysocks/SnapJS/Make Group
+revision: 0
+title: $:/plugins/inmysocks/SnapSVG/Make Group
+type: text/vnd.tiddlywiki
 
 \define thisAddGroupButton()
 <$button>Add Group
-<$action-setfield $tiddler="""$:/SVG Group/$(GroupName)$""" tags={{$:/state/Make Group!!tags}} object_type='Group' dragable={{$:/state/Make Group!!dragable}} object_name={{$:/state/Make Group!!object_name}} image={{$:/state/Make Group!!selected_surface}} rotation=0 xc=0 yc=0 object_type=Group/>
-<$action-setfield $tiddler='$:/state/Make Group' tags='' object_name=''/>
+	<$action-setfield 
+		$tiddler="""$:/SVG Group/$(GroupName)$""" 
+		tags={{$:/state/Make Group!!tags}} 
+		object_type='Group' 
+		dragable={{$:/state/Make Group!!dragable}} 
+		object_name={{$:/state/Make Group!!object_name}} 
+		image={{$:/state/Make Group!!selected_surface}} 
+		rotation=0 
+		xc=0 
+		yc=0 
+		object_type=Group
+		click={{$:/state/Add Thing!!click}}
+		doubleclick={{$:/state/Add Thing!!doubleclick}}
+	/>
+	<$action-setfield 
+		$tiddler='$:/state/Make Group' 
+		tags='' 
+		object_name=''
+		click=''
+		doubleclick=''
+	/>
 </$button>
 \end
 
@@ -24,13 +45,17 @@ Group Name:
 Select Image:
 
 <$select tiddler='$:/state/Make Group' field=selected_surface>
-<option value=''>All</option>
-<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
-<option value=<<currentTiddler>>><$view field='title'/></option>
-</$list>
+	<option value=''>
+		All
+	</option>
+	<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='title'/>
+		</option>
+	</$list>
 </$select>
 
-Add Elements to Group:
+Add Objects to Group:
 
 <$select tiddler='$:/state/Make Group' field='elemet_to_add'>
 	<option value=''>
@@ -47,6 +72,13 @@ Add Elements to Group:
 			</$list>
 		</optgroup>
 	</$list>
+	<optgroup label='Group'>
+		<$list filter='[object_type[Group]has[object_name]]'>
+			<option value=<<currentTiddler>>>
+				<$view field='object_name'/>
+			</option>
+		</$list>
+	</optgroup>
 </$select>
 
 <$fieldmangler tiddler='$:/state/Make Group'>

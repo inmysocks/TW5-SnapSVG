@@ -1,5 +1,5 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapJS/TextControlTemplate
+title: $:/plugins/inmysocks/SnapSVG/TextControlTemplate
 
 <$list filter='[is[current]tag[SVG Element]element_type[text]]'>
 

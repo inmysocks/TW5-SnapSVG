@@ -1,41 +1,95 @@
 caption: Add Action
-tags: $:/tags/SnapJS/Actions
-title: $:/plugins/inmysocks/SnapJS/Add Action
+revision: 0
+tags: $:/tags/SnapSVG/Actions
+title: $:/plugins/inmysocks/SnapSVG/Add Action
+type: text/vnd.tiddlywiki
 
 \define thisAddActionButton()
 <$button>Add Action
-	<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" action_name={{$:/temp/SnapJS/Add Action!!action_name}} action_type={{$:/temp/SnapJS/Add Action!!selected_action}} tags=Action/>
-	<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Add Object'>
-		<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" action_tiddler={{$:/temp/SnapJS/Add Action!!selected_object}}/>
+	<$action-setfield 
+		$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+		action_name={{$:/temp/SnapSVG/Add Action!!action_name}} 
+		action_type={{$:/temp/SnapSVG/Add Action!!selected_action}} 
+		tags="""Action [[$(ImageName)$]]"""
+	/>
+	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Add Object'>
+		<$action-setfield 
+			$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+			action_tiddler={{$:/temp/SnapSVG/Add Action!!selected_object}}
+		/>
 	</$reveal>
-	<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Animation'>
-		<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" action_tiddler={{$:/temp/SnapJS/Add Action!!selected_object}}/>
+	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Animation'>
+		<$action-setfield 
+			$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+			action_tiddler={{$:/temp/SnapSVG/Add Action!!selected_animation}}
+		/>
 	</$reveal>
-	<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Batch'>
-		<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" type="application/json"/>
+	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Batch'>
+		<$action-setfield 
+			$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+			type="application/json"
+		/>
 	</$reveal>
-	<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Remove Object'>
-		<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" action_tiddler={{$:/temp/SnapJS/Add Action!!selected_object}}/>
+	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Remove Object'>
+		<$action-setfield 
+			$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+			action_tiddler={{$:/temp/SnapSVG/Add Action!!selected_object}}
+		/>
 	</$reveal>
-	<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Write'>
-		<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" target_tiddler={{$:/temp/SnapJS/Add Action!!write_tiddler}} target_field={{$:/temp/SnapJS/Add Action!!write_field}} target_value={{$:/temp/SnapJS/Add Action!!write_value}}/>
+	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Write'>
+		<$action-setfield 
+			$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+			target_tiddler={{$:/temp/SnapSVG/Add Action!!write_tiddler}} 
+			target_field={{$:/temp/SnapSVG/Add Action!!write_field}} 
+			target_value={{$:/temp/SnapSVG/Add Action!!write_value}}
+		/>
 	</$reveal>
-	<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Add Click Event'>
-		<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" action_tiddler={{$:/temp/SnapJS/Add Action!!added_action}} target_object={{$:/temp/SnapJS/Add Action!!target_object}} target_type={{$:/temp/SnapJS/Add Action!!target_type}}/>
+	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Add Click Event'>
+		<$action-setfield 
+			$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+			action_tiddler={{$:/temp/SnapSVG/Add Action!!added_action}} 
+			target_object={{$:/temp/SnapSVG/Add Action!!target_object}} 
+			target_type={{$:/temp/SnapSVG/Add Action!!target_type}}
+		/>
 	</$reveal>
-	<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Add Double Click Event'>
-		<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" action_tiddler={{$:/temp/SnapJS/Add Action!!added_action}} target_object={{$:/temp/SnapJS/Add Action!!target_object}} target_type={{$:/temp/SnapJS/Add Action!!target_type}}/>
+	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Add Double Click Event'>
+		<$action-setfield 
+			$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+			action_tiddler={{$:/temp/SnapSVG/Add Action!!added_action}} 
+			target_object={{$:/temp/SnapSVG/Add Action!!target_object}} 
+			target_type={{$:/temp/SnapSVG/Add Action!!target_type}}
+		/>
 	</$reveal>
-	<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Remove Click Event'>
-		<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" action_tiddler={{$:/temp/SnapJS/Add Action!!removed_action}} target_object={{$:/temp/SnapJS/Add Action!!target_object}} target_type={{$:/temp/SnapJS/Add Action!!target_type}}/>
+	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Remove Click Event'>
+		<$action-setfield 
+			$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+			action_tiddler={{$:/temp/SnapSVG/Add Action!!removed_action}} 
+			target_object={{$:/temp/SnapSVG/Add Action!!target_object}} 
+			target_type={{$:/temp/SnapSVG/Add Action!!target_type}}
+		/>
 	</$reveal>
-	<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Remove Double Click Event'>
-		<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" action_tiddler={{$:/temp/SnapJS/Add Action!!removed_action}} target_object={{$:/temp/SnapJS/Add Action!!target_object}} target_type={{$:/temp/SnapJS/Add Action!!target_type}}/>
+	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Remove Double Click Event'>
+		<$action-setfield 
+			$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+			action_tiddler={{$:/temp/SnapSVG/Add Action!!removed_action}} 
+			target_object={{$:/temp/SnapSVG/Add Action!!target_object}} 
+			target_type={{$:/temp/SnapSVG/Add Action!!target_type}}
+		/>
 	</$reveal>
-	<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Button'>
-		<$action-setfield $tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" text={{$:/temp/SnapJS/Add Action}}/>
+	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Button'>
+		<$action-setfield 
+			$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
+			text={{$:/temp/SnapSVG/Add Action}}
+		/>
 	</$reveal>
-	<$action-setfield $tiddler='$:/temp/SnapJS/Add Action' action_name='' target_tiddler='' target_field='' target_value='' text=''/>
+	<$action-setfield 
+		$tiddler='$:/temp/SnapSVG/Add Action' 
+		action_name='' 
+		target_tiddler='' 
+		target_field='' 
+		target_value='' 
+		text=''
+	/>
 </$button>
 \end
 
@@ -43,10 +97,10 @@ title: $:/plugins/inmysocks/SnapJS/Add Action
 
 Action Name:
 
-<$edit-text tiddler='$:/temp/SnapJS/Add Action' field='action_name' class='tc-edit-texteditor'/>
+<$edit-text tiddler='$:/temp/SnapSVG/Add Action' field='action_name' class='tc-edit-texteditor'/>
 
 Action Type:
-<$select tiddler='$:/temp/SnapJS/Add Action' field='selected_action'>
+<$select tiddler='$:/temp/SnapSVG/Add Action' field='selected_action'>
 	<option value=''>
 		--
 	</option>
@@ -57,11 +111,23 @@ Action Type:
 	</$list>
 </$select>
 
-<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Add Object'>
+Image:
+<$select tiddler='$:/temp/SnapSVG/Add Action' field='selected_image'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[tag[SVG Image]]'>
+		<option>
+			<$view field='title'/>
+		</option>
+	</$list>
+</$select>
+
+<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Add Object'>
 
 	Object to add:
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='selected_object'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='selected_object'>
 		<option value=''>
 			--
 		</option>
@@ -82,11 +148,11 @@ Action Type:
 	</$select>
 </$reveal>
 
-<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Remove Object'>
+<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Remove Object'>
 
 	Object to remove:
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='selected_object'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='selected_object'>
 		<option value=''>
 			--
 		</option>
@@ -107,11 +173,11 @@ Action Type:
 	</$select>
 </$reveal>
 
-<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Animation'>
+<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Animation'>
 
 	Select animation to start:
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='selected_animation'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='selected_animation'>
 		<option value=''>
 			--
 		</option>
@@ -123,11 +189,11 @@ Action Type:
 	</$select>
 </$reveal>
 
-<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Batch'>
+<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Batch'>
 
 	Select animation to start:
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='selected_animation'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='selected_animation'>
 		<option value=''>
 			--
 		</option>
@@ -139,21 +205,21 @@ Action Type:
 	</$select>
 </$reveal>
 
-<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Add Click Event'>
+<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Add Click Event'>
 
-	<$radio tiddler='$:/temp/SnapJS/Add Action' field='target_type' value='Element'>Element</$radio>
-	<$radio tiddler='$:/temp/SnapJS/Add Action' field='target_type' value='Group'>Group</$radio>
+	<$radio tiddler='$:/temp/SnapSVG/Add Action' field='target_type' value='Element'>Element</$radio>
+	<$radio tiddler='$:/temp/SnapSVG/Add Action' field='target_type' value='Group'>Group</$radio>
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='target_object'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='target_object'>
 		<option value=''>--</option>
-		<$list filter='[object_type{$:/temp/SnapJS/Add Action!!target_type}]'>
+		<$list filter='[object_type{$:/temp/SnapSVG/Add Action!!target_type}]'>
 			<option><$view field='object_name'/></option>
 		</$list>
 	</$select>
 
 	Select action to trigger on click:
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='added_action'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='added_action'>
 		<option value=''>
 			--
 		</option>
@@ -165,21 +231,21 @@ Action Type:
 	</$select>
 </$reveal>
 
-<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Remove Click Event'>
+<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Remove Click Event'>
 
-	<$radio tiddler='$:/temp/SnapJS/Add Action' field='target_type' value='Element'>Element</$radio>
-	<$radio tiddler='$:/temp/SnapJS/Add Action' field='target_type' value='Group'>Group</$radio>
+	<$radio tiddler='$:/temp/SnapSVG/Add Action' field='target_type' value='Element'>Element</$radio>
+	<$radio tiddler='$:/temp/SnapSVG/Add Action' field='target_type' value='Group'>Group</$radio>
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='target_object'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='target_object'>
 		<option value=''>--</option>
-		<$list filter='[object_type{$:/temp/SnapJS/Add Action!!target_type}]'>
+		<$list filter='[object_type{$:/temp/SnapSVG/Add Action!!target_type}]'>
 			<option><$view field='object_name'/></option>
 		</$list>
 	</$select>
 
 	Select action to remove:
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='removed_action'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='removed_action'>
 		<option value=''>
 			--
 		</option>
@@ -191,21 +257,21 @@ Action Type:
 	</$select>
 </$reveal>
 
-<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Add Double Click Event'>
+<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Add Double Click Event'>
 
-	<$radio tiddler='$:/temp/SnapJS/Add Action' field='target_type' value='Element'>Element</$radio>
-	<$radio tiddler='$:/temp/SnapJS/Add Action' field='target_type' value='Group'>Group</$radio>
+	<$radio tiddler='$:/temp/SnapSVG/Add Action' field='target_type' value='Element'>Element</$radio>
+	<$radio tiddler='$:/temp/SnapSVG/Add Action' field='target_type' value='Group'>Group</$radio>
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='target_object'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='target_object'>
 		<option value=''>--</option>
-		<$list filter='[object_type{$:/temp/SnapJS/Add Action!!target_type}]'>
+		<$list filter='[object_type{$:/temp/SnapSVG/Add Action!!target_type}]'>
 			<option><$view field='object_name'/></option>
 		</$list>
 	</$select>
 
 	Select action to trigger on click:
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='added_action'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='added_action'>
 		<option value=''>
 			--
 		</option>
@@ -217,21 +283,21 @@ Action Type:
 	</$select>
 </$reveal>
 
-<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Remove Double Click Event'>
+<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Remove Double Click Event'>
 
-	<$radio tiddler='$:/temp/SnapJS/Add Action' field='target_type' value='Element'>Element</$radio>
-	<$radio tiddler='$:/temp/SnapJS/Add Action' field='target_type' value='Group'>Group</$radio>
+	<$radio tiddler='$:/temp/SnapSVG/Add Action' field='target_type' value='Element'>Element</$radio>
+	<$radio tiddler='$:/temp/SnapSVG/Add Action' field='target_type' value='Group'>Group</$radio>
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='target_object'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='target_object'>
 		<option value=''>--</option>
-		<$list filter='[object_type{$:/temp/SnapJS/Add Action!!target_type}]'>
+		<$list filter='[object_type{$:/temp/SnapSVG/Add Action!!target_type}]'>
 			<option><$view field='object_name'/></option>
 		</$list>
 	</$select>
 	
 	Select action to remove:
 
-	<$select tiddler='$:/temp/SnapJS/Add Action' field='removed_action'>
+	<$select tiddler='$:/temp/SnapSVG/Add Action' field='removed_action'>
 		<option value=''>
 			--
 		</option>
@@ -243,28 +309,32 @@ Action Type:
 	</$select>
 </$reveal>
 
-<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Write'>
+<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Write'>
 
-	Tiddler: <$edit-text tidddler='$:/temp/SnapJS/Add Action' field='write_tiddler' class='tc-edit-texteditor'/>
+	Tiddler: <$edit-text tidddler='$:/temp/SnapSVG/Add Action' field='write_tiddler' class='tc-edit-texteditor'/>
 
-	Field: <$edit-text tidddler='$:/temp/SnapJS/Add Action' field='write_field' class='tc-edit-texteditor'/>
+	Field: <$edit-text tidddler='$:/temp/SnapSVG/Add Action' field='write_field' class='tc-edit-texteditor'/>
 
-	Value: <$edit-text tidddler='$:/temp/SnapJS/Add Action' field='write_value' class='tc-edit-texteditor'/>
+	Value: <$edit-text tidddler='$:/temp/SnapSVG/Add Action' field='write_value' class='tc-edit-texteditor'/>
 </$reveal>
 
-<$reveal type='match' state='$:/temp/SnapJS/Add Action!!selected_action' text='Button'>
+<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Button'>
 
 	Things here will be executed the same way as if it were in a button
 
-	<$edit-text tiddler='$:/temp/SnapJS/Add Action' class='tc-edit-texteditor'/>
+	<$edit-text tiddler='$:/temp/SnapSVG/Add Action' class='tc-edit-texteditor'/>
 
 </$reveal>
 
-<$reveal type='nomatch' state='$:/temp/SnapJS/Add Action!!selected_action' text=''>
+<$reveal type='nomatch' state='$:/temp/SnapSVG/Add Action!!selected_action' text=''>
 
-<$vars ActionName={{$:/temp/SnapJS/Add Action!!action_name}} ActionType={{$:/temp/SnapJS/Add Action!!selected_action}}>
+<$vars 
+	ActionName={{$:/temp/SnapSVG/Add Action!!action_name}} 
+	ActionType={{$:/temp/SnapSVG/Add Action!!selected_action}}
+	ImageName={{$:/temp/SnapSVG/Add Action!!selected_image}}
+>
 
-<<thisAddActionButton>>
+	<<thisAddActionButton>>
 
 </$vars>
 

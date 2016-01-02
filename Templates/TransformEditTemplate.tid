@@ -1,0 +1,17 @@
+tags: $:/tags/ViewTemplate
+title: $:/plugins/inmysocks/SnapSVG/Templates/TransformEditTemplate
+
+<$list filter='[is[current]tag[SVG Transform]]'>
+	Transform Name:
+	<$edit-text field='transform_name' class='tc-edit-texteditor'/>
+
+	|Rotate Angle |<$edit-text field='rotate_angle'/> |
+	|Rotate Center X |<$edit-text field='rotate_center_x'/> |
+	|Rotate Center Y |<$edit-text field='rotate_center_y'/> |
+	|Scale X |<$edit-text field='scale_x'/> |
+	|Scale Y |<$edit-text field='scale_y'/> |
+	|Scale Center X |<$edit-text field='scale_x0'/> |
+	|Scale Center Y |<$edit-text field='scale_y0'/> |
+	|Translate X |<$edit-text field='translate_x'/> |
+	|Translate Y |<$edit-text field='translate_y'/> |
+</$list>

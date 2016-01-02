@@ -1,6 +1,4 @@
-created: 20151226180452501
-modified: 20151226182821360
-title: $:/plugins/inmysocks/SnapJS/documentation/Surfaces
+title: $:/plugins/inmysocks/SnapSVG/documentation/Surfaces
 
 A Surface what SVG images are displayed on. For this plugin a surface is a tiddler tagged with [[SVG Image]]. This tiddler will display the image and has some control options. Most important are the inputs for setting the height and width of the image created. 
 

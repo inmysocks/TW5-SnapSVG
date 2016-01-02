@@ -1,5 +1,5 @@
 /*\
-title: $:/widgets/inmysocks/SnapWidget.js
+title: $:/plugins/inmysocks/SnapSVG/SnapWidget.js
 type: application/javascript
 module-type: widget
 
@@ -92,14 +92,6 @@ SnapWidget.prototype.execute = function() {
 					}
 				}
 
-				//Add (double) click events to objects
-				var eventFilter = '[tag[Action]action_type[Click Event]][tag[Action]action_type[Double Click Event]]';
-				var events = $tw.wiki.filterTiddlers(eventFilter);
-				for (var i = 0; i < events.length; i++) {
-					//this.addClickEvent(this.wiki.getTiddler(events[i]));
-					this.action(this.wiki.getTiddler(events[i]));
-				}
-
 				//This lets you edit polygons
 				var polygonEditStateTiddler = this.wiki.getTiddler("$:/state/EditPolygon");
 				if (polygonEditStateTiddler) {
@@ -118,19 +110,6 @@ SnapWidget.prototype.execute = function() {
 					if (this.timeLine === "true") {
 						this.makeTimeLine();
 					}
-
-					//This animates things
-					//Marks, cues and actions will need to be added at some point.
-					//Cues will be events that trigger actions. 
-					//	Can we somehow have a timer? Because having one to set cues would be good. - This may require a startup module to work.
-					//	We would want to keep how we have it now, where an animation is triggered by the previous animation. 
-					//	But then we also want to have things like hovering the mouse, clicking, etc. to be able to act as cues.
-					//		I think that for most of this the hover, click, etc. would set a value in a tiddler that then turns on an animation or whatever.
-
-					//Actions would be things like adding or removing an object, starting or stopping an animation or doing something to modify the tiddler store in response to some event. I think that an exaustive list would be: add object, remove object, create group, break group, transform an object, modify tiddler store (write to a tiddler field). The last one would let actions set cues and lots of other things.
-					//Marks will be a description of the state of the surface/animation that can be used to (re)set the surface state. So for my demo animation the first mark would be the state at the start of the animation, the second mark could be after the boat lands and the water is gone, the third mark would be after whatever happens next. Then you could start the animation at any of those marks. We need to figure out how we are going to describe these in a tiddler. We need a way to get the current state of an object from inside the wiki so we can store the transformation in a data tiddler. Something like 'object tiddler: transform string' where all objects that are currently on the surface would be listed. Objects that aren't transformed from their original state would just have an empty transform.
-					//We may need to allow marks to be an incomplete description of a surface so that it doesn't need to include everything together, but we may be able to get the desired results through the creative use of groups.
-					//A combination of cues and marks could allow looping animations since the way we have it set now breaks everything.
 				}
 			}
 		}
@@ -162,6 +141,30 @@ SnapWidget.prototype.startActions = function () {
 };
 
 /*
+* This function adds the initial input events to the image
+*/
+SnapWidget.prototype.addInputEvent = function (tiddler) {
+	if (tiddler) {
+		switch (tiddler.fields.event_type) {
+			case "Click Event":
+				this.addClickEvent(tiddler);
+				break;
+			case "Double Click Event":
+				this.addDoubleClickEvent(tiddler);
+				break;
+			/*
+			case "Hover Event":
+				this.addHoverEvent(tiddler);
+				break;
+			case "Remove Hover Event":
+				this.removeHoverEvent(tiddler);
+				break;
+			*/
+		}
+	}
+};
+
+/*
 This takes a tiddler describing a generic action and performs the action described.
 	This function takes a tiddler object as input
 	It can optionally take a second input 'enable', this input is only used for playign animations, see the animation function for details
@@ -176,34 +179,11 @@ SnapWidget.prototype.action = function (tiddler, enable) {
 			case "Remove Object":
 				this.removeObject(tiddler);
 				break;
-			case "Animation":
-				this.animate(tiddler.fields.action_tiddler, undefined, enable);
-				break;
-			case "Write":
-				this.writeField(tiddler);
-				break;
-			case "Click Event":
-				this.addClickEvent(tiddler);
-				break;
 			case "Add Click Event":
 				this.addClickEvent(tiddler);
 				break;
 			case "Remove Click Event":
 				this.removeClickEvent(tiddler);
-				break;
-			case "Batch":
-				this.executeBatchActions(tiddler);
-				break;
-			/*
-			case "Hover Event":
-				this.addHoverEvent(tiddler);
-				break;
-			case "Remove Hover Event":
-				this.removeHoverEvent(tiddler);
-				break;
-			*/
-			case "Double Click Event":
-				this.addDoubleClickEvent(tiddler);
 				break;
 			case "Add Double Click Event":
 				this.addDoubleClickEvent(tiddler);
@@ -213,6 +193,15 @@ SnapWidget.prototype.action = function (tiddler, enable) {
 				break;
 			case "Button":
 				this.button(tiddler);
+				break;
+			case "Batch":
+				this.executeBatchActions(tiddler);
+				break;
+			case "Animation":
+				this.animate(tiddler.fields.action_tiddler, undefined, enable);
+				break;
+			case "Write":
+				this.writeField(tiddler);
 				break;
 		}
 	}
@@ -258,9 +247,14 @@ This adds a click event to an object
 SnapWidget.prototype.addClickEvent = function (tiddler) {
 	var self = this;
 	var targetAction = this.wiki.getTiddler(tiddler.fields.action_tiddler);
-	if (tiddler) {
+	if (tiddler && targetAction) {
 		if (this.SVGObjects[tiddler.fields.target_object]) {
 			this.SVGObjects[tiddler.fields.target_object].click(function () {self.action(targetAction, "true");});
+			var filter = '[object_type[' + tiddler.fields.target_type + ']object_name[' + tiddler.fields.target_object + ']limit[1]]';
+			var objectTiddler = this.wiki.filterTiddlers(filter);
+			if (objectTiddler[0]) {
+				$tw.wiki.setText(objectTiddler[0], 'click', undefined, tiddler.fields.action_tiddler);
+			}
 		}
 	}
 };
@@ -270,10 +264,14 @@ This removes a click event from an object.
 */
 SnapWidget.prototype.removeClickEvent = function (tiddler) {
 	var self = this;
-	var targetAction = this.wiki.getTiddler(tiddler.fields.action_tiddler);
 	if (tiddler) {
 		if (this.SVGObjects[tiddler.fields.target_object]) {
-			this.SVGObjects[tiddler.fields.target_object].unclick(function () {self.action(targetAction, "true");});
+			this.SVGObjects[tiddler.fields.target_object].unclick();
+			var filter = '[object_type[' + tiddler.fields.target_type + ']object_name[' + tiddler.fields.target_object + ']limit[1]]';
+			var objectTiddler = this.wiki.filterTiddlers(filter);
+			if (objectTiddler[0]) {
+				$tw.wiki.setText(objectTiddler[0], 'click', undefined, '');
+			}
 		}
 	}
 };
@@ -284,9 +282,14 @@ This adds a double click event to an object
 SnapWidget.prototype.addDoubleClickEvent = function (tiddler) {
 	var self = this;
 	var targetAction = this.wiki.getTiddler(tiddler.fields.action_tiddler);
-	if (tiddler) {
+	if (tiddler && targetAction) {
 		if (this.SVGObjects[tiddler.fields.target_object]) {
 			this.SVGObjects[tiddler.fields.target_object].dblclick(function () {self.action(targetAction, "true");});
+			var filter = '[object_type[' + tiddler.fields.target_type + ']object_name[' + tiddler.fields.target_object + ']limit[1]]';
+			var objectTiddler = this.wiki.filterTiddlers(filter);
+			if (objectTiddler[0]) {
+				$tw.wiki.setText(objectTiddler, 'doubleclick', undefined, tiddler.fields.action_tiddler);
+			}
 		}
 	}
 };
@@ -296,14 +299,17 @@ This removes a double click event from an object.
 */
 SnapWidget.prototype.removeDoubleClickEvent = function (tiddler) {
 	var self = this;
-	var targetAction = this.wiki.getTiddler(tiddler.fields.action_tiddler);
 	if (tiddler) {
 		if (this.SVGObjects[tiddler.fields.target_object]) {
-			this.SVGObjects[tiddler.fields.target_object].undblclick(function () {self.action(targetAction, "true");});
+			this.SVGObjects[tiddler.fields.target_object].undblclick();
+			var filter = '[object_type[' + tiddler.fields.target_type + ']object_name[' + tiddler.fields.target_object + ']limit[1]]';
+			var objectTiddler = this.wiki.filterTiddlers(filter);
+			if (objectTiddler[0]) {
+				$tw.wiki.setText(objectTiddler[0], 'doubleclick', undefined, '');
+			}
 		}
 	}
 };
-
 
 /*
 This function adds an object to the SVG surface.
@@ -314,25 +320,177 @@ SnapWidget.prototype.addObject = function (tiddler) {
 		if (this.SVGObjects[tiddler.fields.object_name] === undefined) {
 			switch(tiddler.fields.element_type) {
 				case "rect":
-					this.SVGObjects[tiddler.fields.object_name] = this.SVG.rect(tiddler.fields.x_position,tiddler.fields.y_position,tiddler.fields.width,tiddler.fields.height);
+					var rx = tiddler.fields.rx ? tiddler.fields.rx:0;
+					var ry = tiddler.fields.ry ? tiddler.fields.ry:0;
+					if (tiddler.fields.contents) {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
+						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.rect(tiddler.fields.x_position,tiddler.fields.y_position,tiddler.fields.width,tiddler.fields.height,rx,ry));
+						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
+						if (thisTiddler) {
+							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
+							var actionText = thisTiddler.fields.text;
+							var parsed;
+							var widgets;
+							var container;
+							var stringPassed;
+
+							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
+							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
+							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
+							container = $tw.fakeDocument.createElement("div");
+							widgets.setVariable("currentTiddler", tiddler.fields.title);
+							widgets.render(container, null);
+							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
+							bob.node.innerHTML = container.innerHTML;
+						}
+						this.SVGObjects[tiddler.fields.object_name].add(bob);
+					} else {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.rect(tiddler.fields.x_position,tiddler.fields.y_position,tiddler.fields.width,tiddler.fields.height,rx,ry);
+					}
 					break;
 				case "circle":
-					this.SVGObjects[tiddler.fields.object_name] = this.SVG.circle(tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.circle_radius);
+					if (tiddler.fields.contents) {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
+						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.circle(tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.circle_radius));
+						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
+						if (thisTiddler) {
+							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
+							var actionText = thisTiddler.fields.text;
+							var parsed;
+							var widgets;
+							var container;
+							var stringPassed;
+
+							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
+							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
+							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
+							container = $tw.fakeDocument.createElement("div");
+							widgets.setVariable("currentTiddler", tiddler.fields.title);
+							widgets.render(container, null);
+							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
+							bob.node.innerHTML = container.innerHTML;
+						}
+						this.SVGObjects[tiddler.fields.object_name].add(bob);
+					} else {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.circle(tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.circle_radius);
+					}
 					break;
 				case "ellipse":
-					this.SVGObjects[tiddler.fields.object_name] = this.SVG.ellipse(tiddler.fields.x_position,tiddler.fields.y_position,tiddler.fields.x_radius,tiddler.fields.y_radius);
+					if (tiddler.fields.contents) {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
+						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.ellipse(tiddler.fields.x_position,tiddler.fields.y_position,tiddler.fields.x_radius,tiddler.fields.y_radius));
+						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
+						if (thisTiddler) {
+							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
+							var actionText = thisTiddler.fields.text;
+							var parsed;
+							var widgets;
+							var container;
+							var stringPassed;
+
+							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
+							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
+							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
+							container = $tw.fakeDocument.createElement("div");
+							widgets.setVariable("currentTiddler", tiddler.fields.title);
+							widgets.render(container, null);
+							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
+							bob.node.innerHTML = container.innerHTML;
+						}
+						this.SVGObjects[tiddler.fields.object_name].add(bob);
+					} else {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.ellipse(tiddler.fields.x_position,tiddler.fields.y_position,tiddler.fields.x_radius,tiddler.fields.y_radius);
+					}
 					break;
 				case "line":
-					this.SVGObjects[tiddler.fields.object_name] = this.SVG.line(tiddler.fields.x_1,tiddler.fields.y_1,tiddler.fields.x_2,tiddler.fields.y_2);
+					if (tiddler.fields.contents) {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
+						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.line(tiddler.fields.x_1,tiddler.fields.y_1,tiddler.fields.x_2,tiddler.fields.y_2));
+						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
+						if (thisTiddler) {
+							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
+							var actionText = thisTiddler.fields.text;
+							var parsed;
+							var widgets;
+							var container;
+							var stringPassed;
+
+							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
+							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
+							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
+							container = $tw.fakeDocument.createElement("div");
+							widgets.setVariable("currentTiddler", tiddler.fields.title);
+							widgets.render(container, null);
+							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
+							bob.node.innerHTML = container.innerHTML;
+						}
+						this.SVGObjects[tiddler.fields.object_name].add(bob);
+					} else {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.line(tiddler.fields.x_1,tiddler.fields.y_1,tiddler.fields.x_2,tiddler.fields.y_2);
+					}
 					break;
 				case "polygon":
-					this.SVGObjects[tiddler.fields.object_name] = this.SVG.polygon(tiddler.fields.points);
+					if (tiddler.fields.contents) {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
+						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.polygon(tiddler.fields.points));
+						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
+						if (thisTiddler) {
+							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
+							var actionText = thisTiddler.fields.text;
+							var parsed;
+							var widgets;
+							var container;
+							var stringPassed;
+
+							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
+							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
+							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
+							container = $tw.fakeDocument.createElement("div");
+							widgets.setVariable("currentTiddler", tiddler.fields.title);
+							widgets.render(container, null);
+							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
+							bob.node.innerHTML = container.innerHTML;
+						}
+						this.SVGObjects[tiddler.fields.object_name].add(bob);
+					} else {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.polygon(tiddler.fields.points);
+					}
 					break;
 				case "image":
-					this.SVGObjects[tiddler.fields.object_name] = this.SVG.image(tiddler.fields.source, tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.width, tiddler.fields.height);
+					if (tiddler.fields.contents) {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
+						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.image(tiddler.fields.source, tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.width, tiddler.fields.height));
+						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
+						if (thisTiddler) {
+							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
+							var actionText = thisTiddler.fields.text;
+							var parsed;
+							var widgets;
+							var container;
+							var stringPassed;
+
+							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
+							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
+							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
+							container = $tw.fakeDocument.createElement("div");
+							widgets.setVariable("currentTiddler", tiddler.fields.title);
+							widgets.render(container, null);
+							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
+							bob.node.innerHTML = container.innerHTML;
+						}
+						this.SVGObjects[tiddler.fields.object_name].add(bob);
+					} else {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.image(tiddler.fields.source, tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.width, tiddler.fields.height);
+					}
 					break;
 				case "text":
-					this.SVGObjects[tiddler.fields.object_name] = this.SVG.text(tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.text);
+					if (tiddler.fields.contents) {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
+						this.SVGObjects[tiddler.fields.object_name].add();
+						this.SVGObjects[tiddler.fields.object_name].add();
+					} else {
+						this.SVGObjects[tiddler.fields.object_name] = this.SVG.text(tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.text);
+					}
 					break;
 				case "tiddler":
 					var imageTiddler = this.wiki.getTiddler(tiddler.fields.image_tiddler);
@@ -342,6 +500,26 @@ SnapWidget.prototype.addObject = function (tiddler) {
 						this.SVGObjects[tiddler.fields.object_name].append(fragment.node.children[0]);
 					}
 					break;
+			}
+			if (tiddler.fields.contents) {
+				var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
+				if (thisTiddler) {
+					var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
+					var actionText = thisTiddler.fields.text;
+					var parsed;
+					var widgets;
+					var container;
+					var stringPassed;
+
+					stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
+					parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
+					widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
+					container = $tw.fakeDocument.createElement("div");
+					widgets.setVariable("currentTiddler", tiddler.fields.title);
+					widgets.render(container, null);
+					var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
+					bob.node.innerHTML = container.innerHTML;
+				}
 			}
 		}
 	} else if (tiddler.fields.object_type === "Group") {
@@ -364,13 +542,23 @@ SnapWidget.prototype.addObject = function (tiddler) {
 	if (tiddler.fields.class) {
 		this.addClass(tiddler);
 	}
+	if (tiddler.fields.click) {
+		var self = this;
+		var targetAction = this.wiki.getTiddler(tiddler.fields.click);
+		this.SVGObjects[tiddler.fields.object_name].click(function () {self.action(targetAction, "true");});
+	}
+	if (tiddler.fields.doubleclick) {
+		var self = this;
+		var targetAction = this.wiki.getTiddler(tiddler.fields.doubleclick);
+		this.SVGObjects[tiddler.fields.object_name].dblclick(function () {self.action(targetAction, "true");});
+	}
 };
 
 SnapWidget.prototype.addClass = function (tiddler) {
 	if (this.SVGObjects[tiddler.fields.object_name]) {
 		this.SVGObjects[tiddler.fields.object_name].addClass(tiddler.fields.class);
 	}
-}
+};
 
 /*
 This is a function that applies the defined transforms to an SVG object (groups or elements).
@@ -415,11 +603,43 @@ SnapWidget.prototype.objectTransforms = function (tiddler) {
 		objectAttributes['transform'] = transformString;
 		this.SVGObjects[tiddler.fields.object_name].attr(objectAttributes);
 		var transformMatrix = this.makeTransformMatrix(tiddler);
+		var globalTransform = this.SVGObjects[tiddler.fields.object_name].transform();
 		//This adds the transform to the current state of the object
 		if (transformMatrix) {
-			var globalTransform = this.SVGObjects[tiddler.fields.object_name].transform();
-			this.SVGObjects[tiddler.fields.object_name].transform({transform: globalTransform.globalMatrix.add(transformMatrix)});
+			this.SVGObjects[tiddler.fields.object_name].transform({transform: globalTransform.localMatrix.add(transformMatrix)});
 		}
+		var animationTransformFilter = '[tag[Animation]has[transform]invert[true]object_name[' + tiddler.fields.object_name +']]';
+		var animationTransforms = this.wiki.filterTiddlers(animationTransformFilter);
+		for (var i = 0; i < animationTransforms.length; i++) {
+			var animationTransformMatrix = this.makeTransformMatrix(animationTransforms[i]);
+			if (globalTransform && animationTransformMatrix) {
+				var thisTransform = {};
+				thisTransform['transform'] = globalTransform.localMatrix.add(animationTransformMatrix);
+				this.SVGObjects[tiddler.fields.object_name].animate(thisTransform,0);
+				/*
+				if (tiddler.fields.mask) {
+					var mask = this.SVGObjects[tiddler.fields.mask].clone();
+					var split = globalTransform.globalMatrix.split();
+					mask.transform(globalTransform.globalMatrix.invert().translate(split.dx,split.dy).add(animationTransformMatrix.invert()));
+					mask.attr({fill:"#fff",height:400,width:400});
+					mask.remove();
+					console.log(mask);
+					this.SVGObjects[tiddler.fields.object_name].attr({'mask':mask});
+				}
+				*/
+			}
+		}
+		/*
+		if (tiddler.fields.mask) {
+			var mask = this.SVGObjects[tiddler.fields.mask].clone();
+			var split = globalTransform.globalMatrix.split();
+			mask.transform(globalTransform.globalMatrix.invert().translate(split.dx,split.dy).add(animationTransformMatrix.invert()));
+			mask.attr({fill:"#fff",height:400,width:400});
+			mask.remove();
+			console.log(mask);
+			this.SVGObjects[tiddler.fields.object_name].attr({'mask':mask});
+		}
+		*/
 		object = this.SVGObjects[tiddler.fields.object_name];
 		if (tiddler.fields.dragable === "true" && object) {
 			this.objectDrag(tiddler, object);
@@ -447,8 +667,13 @@ SnapWidget.prototype.makeTransformMatrix = function(tiddler) {
 			}
 			var ElementBBox = this.SVGObjects[tiddler.fields.object_name].getBBox();
 			var globalTransform = this.SVGObjects[tiddler.fields.object_name].transform();
-			var initial_x = globalTransform.globalMatrix.invert().x(ElementBBox.cx,ElementBBox.cy);
-			var initial_y = globalTransform.globalMatrix.invert().y(ElementBBox.cx,ElementBBox.cy);
+			if (tiddler.fields.invert === "true") {
+				var initial_x = globalTransform.localMatrix.invert().x(ElementBBox.cx,ElementBBox.cy);
+				var initial_y = globalTransform.localMatrix.invert().y(ElementBBox.cx,ElementBBox.cy);
+			} else {
+				var initial_x = globalTransform.localMatrix.invert().x(ElementBBox.cx,ElementBBox.cy) ;
+				var initial_y = globalTransform.localMatrix.invert().y(ElementBBox.cx,ElementBBox.cy) ;
+			}
 			//This can scale x and y differently and set the center of the scaling
 			var scale_x, scale_y, scale_x0, scale_y0;
 			scale_x = transform_tiddler.fields.scale_x ? transform_tiddler.fields.scale_x:1;
@@ -486,7 +711,7 @@ SnapWidget.prototype.objectDrag = function (tiddler, object) {
 		drag_dx = dx;
 		drag_dy = dy;
 		var transformString = "t" + Number(tiddler.fields.xc+dx) + "," + Number(tiddler.fields.yc+dy) + "r" + tiddler.fields.rotation + "s" + tiddler.fields.scale;
-		object.attr({transform: transformString});
+		object.transform(transformString);
 		}, 
 		function (x,y,event) {
 
@@ -509,7 +734,7 @@ SnapWidget.prototype.removeObject = function (tiddler) {
 	if (this.SVGObjects[actionTiddler.fields.object_name]) {
 		this.SVGObjects[actionTiddler.fields.object_name].remove();
 	}
-}
+};
 
 /*
 This is needed to let you string animations together.
@@ -520,24 +745,75 @@ SnapWidget.prototype.animate = function (tiddler, triggeringAnimation, enable) {
 		$tw.wiki.setText(triggeringAnimation, "finished", undefined, "true");
 	}
 	var animationTiddler = this.wiki.getTiddler(tiddler);
+	if (animationTiddler) {
+		switch (animationTiddler.fields.object_type) {
+			case "group":
+				var filter = '[object_type[Group]object_name[' + animationTiddler.fields.object_name + ']limit[1]]';
+				break;
+			case 'element':
+				var filter = '[object_type[Element]object_name[' + animationTiddler.fields.object_name + ']limit[1]]';
+				break;
+		}
+	}
+	var objectTiddler = this.wiki.getTiddler($tw.wiki.filterTiddlers(filter));
 	var animationString = '';
 	var animationParameters = {};
-	if (animationTiddler) {
+	if (animationTiddler && objectTiddler) {
 		if(animationTiddler.fields.enabled === "true" || enable === "true") {
 			if (animationTiddler.fields.transform) {
-				var globalTransform = this.SVGObjects[animationTiddler.fields.object_name].transform();
-				var transformMatrix = this.makeTransformMatrix(animationTiddler);
-				if (transformMatrix) {
-					if (animationTiddler.fields.invert === "true") {
-						transformMatrix = transformMatrix.invert();
-						$tw.wiki.setText(animationTiddler.fields.title, 'invert', undefined, 'false');
-					} else {
-						$tw.wiki.setText(animationTiddler.fields.title, 'invert', undefined, 'true');
-					}
-					animationParameters['transform'] = globalTransform.globalMatrix.add(transformMatrix);
-					this.SVGObjects[animationTiddler.fields.object_name].animate(animationParameters, Number(animationTiddler.fields.duration));
+				//This transform string applies all of the transforms done only to this object, like translations from dragging the object
+				var transformString = "";
+				if (objectTiddler.fields.xc && objectTiddler.fields.yc) {
+					transformString += "t" + objectTiddler.fields.xc + "," + objectTiddler.fields.yc;
 				}
-
+				if (objectTiddler.fields.rotation) {
+					transformString += "r" + objectTiddler.fields.rotation;
+				}
+				if (objectTiddler.fields.scale) {
+					transformString += "s" + objectTiddler.fields.scale;
+				}
+				//These are the object attributes set in the object definition objectTiddler
+				var objectAttributes = {};
+				if (objectTiddler.fields.fill_color) {
+					objectAttributes['fill'] = objectTiddler.fields.fill_color;
+				}
+				if (objectTiddler.fields.stroke_color) {
+					objectAttributes['stroke'] = objectTiddler.fields.stroke_color;
+				}
+				if (objectTiddler.fields.stroke_width) {
+					objectAttributes['strokeWidth'] = objectTiddler.fields.stroke_width;
+				}
+				if (objectTiddler.fields.fill_opacity) {
+					objectAttributes['fill-opacity'] = Number(objectTiddler.fields.fill_opacity);
+				}
+				if (objectTiddler.fields.width) {
+					objectAttributes['width'] = objectTiddler.fields.width;
+				}
+				if (objectTiddler.fields.height) {
+					objectAttributes['height'] = objectTiddler.fields.height;
+				}
+				if (objectTiddler.fields.style) {
+					objectAttributes['style'] = objectTiddler.fields.style;
+				}
+				objectAttributes['transform'] = transformString;
+				this.SVGObjects[objectTiddler.fields.object_name].attr(objectAttributes);
+				var animationTransformMatrix = this.makeTransformMatrix(animationTiddler);
+				var globalTransform = this.SVGObjects[animationTiddler.fields.object_name].transform();
+				var thisTransform = {};
+				if (globalTransform && animationTransformMatrix) {
+					if (animationTiddler.fields.invert === "false") {
+						$tw.wiki.setText(animationTiddler.fields.title, 'invert', undefined, 'true');
+						this.SVGObjects[animationTiddler.fields.object_name].attr(objectAttributes);
+						thisTransform['transform'] = globalTransform.localMatrix.add(animationTransformMatrix);
+					} else {
+						$tw.wiki.setText(animationTiddler.fields.title, 'invert', undefined, 'false');
+						var string2 = animationTransformMatrix.toTransformString();
+						objectAttributes['transform'] = globalTransform.local + string2;
+						this.SVGObjects[animationTiddler.fields.object_name].attr(objectAttributes);
+						thisTransform['transform'] =globalTransform.local;
+					}
+					this.SVGObjects[animationTiddler.fields.object_name].animate(thisTransform,Number(animationTiddler.fields.duration));
+				}
 			} else {
 				if (animationTiddler.fields.target_location) {
 					animationString = animationString + "t" + animationTiddler.fields.target_location;
@@ -564,7 +840,7 @@ SnapWidget.prototype.animate = function (tiddler, triggeringAnimation, enable) {
 					animationParameters['strokeWidth'] = animationTiddler.fields.stroke_width;
 				}
 				var duration;
-				if (animationTiddler.fields.finished === "true") {
+				if (animationTiddler.fields.finished === "true" && this.type === "animation") {
 					duration = 0;
 				} else {
 					duration = Number(animationTiddler.fields.duration);
@@ -674,7 +950,7 @@ SnapWidget.prototype.polygonEdit = function (polygonEditStateTiddler) {
 		  	}
 		}
 	}
-}
+};
 
 /*
 This is the main function used to create a timeline for the animations.

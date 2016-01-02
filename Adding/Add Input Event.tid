@@ -1,20 +1,33 @@
 caption: Add Input Event
-tags: $:/tags/SnapJS/Actions
-title: $:/plugins/inmysocks/SnapJS/Add Input Event
+revision: 0
+tags: $:/tags/SnapSVG/Actions
+title: $:/plugins/inmysocks/SnapSVG/Add Input Event
+type: text/vnd.tiddlywiki
 
 \define thisMakeButton()
 <$button>Create Input Event
-	<$action-setfield $tiddler="""$:/SVG Input Event/$(InputEventType)$/$(ActionName)$""" action_name="""$(ActionName)$""" action_tiddler={{$:/temp/SnapJS/Add Input!!selected_action}} action_type={{$:/temp/SnapJS/Add Input!!input_type}} target_object={{$:/temp/SnapJS/Add Input!!object_name}} target_type={{$:/temp/SnapJS/Add Input!!object_type}} tags="""Action [[$(SVGImage)$]]"""/>
-	<$action-setfield $tiddler='$:/temp/SnapJS/Add Input' action_name=''/>
+	<$action-setfield 
+		$tiddler="""$:/SVG Input Event/$(InputEventType)$/$(ActionName)$""" 
+		event_name="""$(ActionName)$""" 
+		action_tiddler={{$:/temp/SnapSVG/Add Input!!selected_action}} 
+		event_type={{$:/temp/SnapSVG/Add Input!!input_type}} 
+		target_object={{$:/temp/SnapSVG/Add Input!!object_name}} 
+		target_type={{$:/temp/SnapSVG/Add Input!!object_type}} 
+		tags="""[[Input Event]]"""
+	/>
+	<$action-setfield 
+		$tiddler='$:/temp/SnapSVG/Add Input' 
+		action_name=''
+	/>
 </$button>
 \end
 
 Input Event Name:
 
-<$edit-text tiddler='$:/temp/SnapJS/Add Input' field='action_name' class='tc-edit-texteditor'/>
+<$edit-text tiddler='$:/temp/SnapSVG/Add Input' field='action_name' class='tc-edit-texteditor'/>
 
 Input Event Type:
-<$select tiddler='$:/temp/SnapJS/Add Input' field='input_type'>
+<$select tiddler='$:/temp/SnapSVG/Add Input' field='input_type'>
 	<option value=''>
 		--
 	</option>
@@ -26,7 +39,7 @@ Input Event Type:
 </$select>
 
 Image:
-<$select tiddler='$:/temp/SnapJS/Add Input' field='selected_image'>
+<$select tiddler='$:/temp/SnapSVG/Add Input' field='selected_image'>
 	<option value=''>
 		--
 	</option>
@@ -39,15 +52,15 @@ Image:
 
 Target Object:
 
-<$radio tiddler='$:/temp/SnapJS/Add Input' field='object_type' value='Group'>Group</$radio>
+<$radio tiddler='$:/temp/SnapSVG/Add Input' field='object_type' value='Group'>Group</$radio>
 
-<$radio tiddler='$:/temp/SnapJS/Add Input' field='object_type' value='Element'>Element</$radio>
+<$radio tiddler='$:/temp/SnapSVG/Add Input' field='object_type' value='Element'>Element</$radio>
 
-<$select tiddler='$:/temp/SnapJS/Add Input' field='object_name'>
+<$select tiddler='$:/temp/SnapSVG/Add Input' field='object_name'>
 	<option value=''>
 		--
 	</option>
-	<$list filter='[tag{$:/temp/SnapJS/Add Input!!selected_image}object_type{$:/temp/SnapJS/Add Input!!object_type}]'>
+	<$list filter='[object_type{$:/temp/SnapSVG/Add Input!!object_type}has[object_name]]'>
 		<option>
 			<$view field='object_name'/>
 		</option>
@@ -56,7 +69,7 @@ Target Object:
 
 Select action to execute:
 
-<$select tiddler='$:/temp/SnapJS/Add Input' field='selected_action'>
+<$select tiddler='$:/temp/SnapSVG/Add Input' field='selected_action'>
 	<option value=''>
 		--
 	</option>
@@ -71,6 +84,10 @@ Select action to execute:
 	</$list>
 </$select>
 
-<$vars SVGImage={{$:/temp/SnapJS/Add Input!!selected_image}} ActionName={{$:/temp/SnapJS/Add Input!!action_name}} InputEventType={{$:/temp/SnapJS/Add Input!!input_type}}>
+<$vars 
+	SVGImage={{$:/temp/SnapSVG/Add Input!!selected_image}} 
+	ActionName={{$:/temp/SnapSVG/Add Input!!action_name}} 
+	InputEventType={{$:/temp/SnapSVG/Add Input!!input_type}}
+>
 	<<thisMakeButton>>
 </$vars>

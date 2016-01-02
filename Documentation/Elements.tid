@@ -1,6 +1,4 @@
-created: 20151226183119016
-modified: 20151226185213916
-title: $:/plugins/inmysocks/SnapJS/documentation/Elements
+title: $:/plugins/inmysocks/SnapSVG/documentation/Elements
 
 The basic parts of an svg image are elements, elements are the smallest part of the image that can be manipulated individually.
 

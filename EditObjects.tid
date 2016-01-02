@@ -1,8 +1,8 @@
 caption: Edit Objects
-title: $:/plugins/inmysocks/SnapJS/EditObjects
+title: $:/plugins/inmysocks/SnapSVG/EditObjects
 
 Select type to edit: 
-<$select tiddler='$:/state/SnapJS/EditObjects' field='what_to_edit'>
+<$select tiddler='$:/state/SnapSVG/EditObjects' field='what_to_edit'>
 	<option value=''>
 		--
 	</option>
@@ -20,11 +20,11 @@ Select type to edit:
 	</option>
 </$select>
 
-<$reveal type='match' state='$:/state/SnapJS/EditObjects!!what_to_edit' text=''>
+<$reveal type='match' state='$:/state/SnapSVG/EditObjects!!what_to_edit' text=''>
 	Select the type you want to edit.
 </$reveal>
-<$reveal type='match' state='$:/state/SnapJS/EditObjects!!what_to_edit' text='SVG Image'>
-	<$select tiddler='$:/state/SnapJS/EditObjects' field='selected_object'>
+<$reveal type='match' state='$:/state/SnapSVG/EditObjects!!what_to_edit' text='SVG Image'>
+	<$select tiddler='$:/state/SnapSVG/EditObjects' field='selected_object'>
 		<option value=''>
 			--
 		</option>
@@ -35,13 +35,13 @@ Select type to edit:
 		</$list>
 	</$select>
 	<br>
-	<$tiddler tiddler={{$:/state/SnapJS/EditObjects!!selected_object}}>
-		{{||$:/plugins/inmysocks/SnapJS/SVGSurfaceEditTemplate}}
+	<$tiddler tiddler={{$:/state/SnapSVG/EditObjects!!selected_object}}>
+		{{||$:/plugins/inmysocks/SnapSVG/SVGSurfaceEditTemplate}}
 	</$tiddler>
 </$reveal>
 
-<$reveal type='match' state='$:/state/SnapJS/EditObjects!!what_to_edit' text='SVG Element'>
-	<$select tiddler='$:/state/SnapJS/EditObjects' field='selected_object'>
+<$reveal type='match' state='$:/state/SnapSVG/EditObjects!!what_to_edit' text='SVG Element'>
+	<$select tiddler='$:/state/SnapSVG/EditObjects' field='selected_object'>
 		<option value=''>
 			--
 		</option>
@@ -55,35 +55,35 @@ Select type to edit:
 			</optgroup>
 		</$list>
 	</$select>
-	<$tiddler tiddler={{$:/state/SnapJS/EditObjects!!selected_object}}>
-		<$reveal type=match state='!!element_type' text=circle>
-			{{||$:/plugins/inmysocks/SnapJS/CircleControlTemplate}}
+	<$tiddler tiddler={{$:/state/SnapSVG/EditObjects!!selected_object}}>
+		<$reveal type='match' state='!!element_type' text='circle'>
+			{{||$:/plugins/inmysocks/SnapSVG/CircleControlTemplate}}
 		</$reveal>
-		<$reveal type=match state='!!element_type' text=ellipse>
-			{{||$:/plugins/inmysocks/SnapJS/EllipseControlTemplate}}
+		<$reveal type='match' state='!!element_type' text='ellipse'>
+			{{||$:/plugins/inmysocks/SnapSVG/EllipseControlTemplate}}
 		</$reveal>
-		<$reveal type=match state='!!element_type' text=polygon>
-			{{||$:/plugins/inmysocks/SnapJS/PolygonControlTemplate}}
+		<$reveal type='match' state='!!element_type' text='polygon'>
+			{{||$:/plugins/inmysocks/SnapSVG/PolygonControlTemplate}}
 		</$reveal>
-		<$reveal type=match state='!!element_type' text=rect>
-			{{||$:/plugins/inmysocks/SnapJS/RectangleControlTemplate}}
+		<$reveal type='match' state='!!element_type' text='rect'>
+			{{||$:/plugins/inmysocks/SnapSVG/RectangleControlTemplate}}
 		</$reveal>
-		<$reveal type=match state='!!element_type' text=text>
-			{{||$:/plugins/inmysocks/SnapJS/TextControlTemplate}}
+		<$reveal type='match' state='!!element_type' text='text'>
+			{{||$:/plugins/inmysocks/SnapSVG/TextControlTemplate}}
 		</$reveal>
-		<$reveal type=match state='!!element_type' text=line>
-			{{||$:/plugins/inmysocks/SnapJS/LineEditTemplate}}
+		<$reveal type='match' state='!!element_type' text='line'>
+			{{||$:/plugins/inmysocks/SnapSVG/LineEditTemplate}}
 		</$reveal>
-		<$reveal type=match state='!!element_type' text=image>
-			{{||$:/plugins/inmysocks/SnapJS/ExternalImageControlTemplate}}
+		<$reveal type='match' state='!!element_type' text='image'>
+			{{||$:/plugins/inmysocks/SnapSVG/ExternalImageControlTemplate}}
 		</$reveal>
-		<$reveal type=match state='!!element_type' text=tiddler>
-			{{||$:/plugins/inmysocks/SnapJS/SVGTiddlerControlTemplate}}
+		<$reveal type='match' state='!!element_type' text='tiddler'>
+			{{||$:/plugins/inmysocks/SnapSVG/SVGTiddlerControlTemplate}}
 		</$reveal>
 	</$tiddler>
 </$reveal>
-<$reveal type='match' state='$:/state/SnapJS/EditObjects!!what_to_edit' text='SVG Group'>
-	<$select tiddler='$:/state/SnapJS/EditObjects' field='selected_object'>
+<$reveal type='match' state='$:/state/SnapSVG/EditObjects!!what_to_edit' text='SVG Group'>
+	<$select tiddler='$:/state/SnapSVG/EditObjects' field='selected_object'>
 		<option value=''>
 			--
 		</option>
@@ -93,12 +93,12 @@ Select type to edit:
 			</option>
 		</$list>
 	</$select>
-	<$tiddler tiddler={{$:/state/SnapJS/EditObjects!!selected_object}}>
-		{{||$:/plugins/inmysocks/SnapJS/GroupEditTemplate}}
+	<$tiddler tiddler={{$:/state/SnapSVG/EditObjects!!selected_object}}>
+		{{||$:/plugins/inmysocks/SnapSVG/GroupEditTemplate}}
 	</$tiddler>
 </$reveal>
-<$reveal type='match' state='$:/state/SnapJS/EditObjects!!what_to_edit' text='Animation'>
-	<$select tiddler='$:/state/SnapJS/EditObjects' field='selected_object'>
+<$reveal type='match' state='$:/state/SnapSVG/EditObjects!!what_to_edit' text='Animation'>
+	<$select tiddler='$:/state/SnapSVG/EditObjects' field='selected_object'>
 		<option value=''>
 			--
 		</option>
@@ -108,7 +108,7 @@ Select type to edit:
 			</option>
 		</$list>
 	</$select>
-	<$tiddler tiddler={{$:/state/SnapJS/EditObjects!!selected_object}}>
-		{{||$:/plugins/inmysocks/SnapJS/AnimationControlTemplate}}
+	<$tiddler tiddler={{$:/state/SnapSVG/EditObjects!!selected_object}}>
+		{{||$:/plugins/inmysocks/SnapSVG/AnimationControlTemplate}}
 	</$tiddler>
 </$reveal>

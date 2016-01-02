@@ -1,4 +1,4 @@
-title: $:/plugins/inmysocks/SnapJS/Add Mark
+title: $:/plugins/inmysocks/SnapSVG/Add Mark
 
 \define open() [[
 
@@ -9,7 +9,7 @@ This is for defining marks in animations. A mark is a set of conditions that def
 If you set a mark only the things listed in that mark will be visible, this includes elements, animations and groups. For now you have to add all the elements in a group and the group itself.
 
 Add SVG Element to mark: 
-<$select tiddler='$:/state/SnapJS/Add Mark' field='svg_element'>
+<$select tiddler='$:/state/SnapSVG/Add Mark' field='svg_element'>
 	<option value=''>
 		--
 	</option>
@@ -20,11 +20,11 @@ Add SVG Element to mark:
 	</$list>
 </$select>
 
-<$list filter='[list[$:/state/SnapJS/Add Mark!!svg_elements]]'>
+<$list filter='[list[$:/state/SnapSVG/Add Mark!!svg_elements]]'>
 	<$button>Remove
 		<<Test>>
 		<$set name=Test filter='[<currentTiddler>]'>
-			<$action-listops $tiddler='$:/state/SnapJS/Add Mark' $list='svg_groups' $subfilter='+[remove<Test>]'/>
+			<$action-listops $tiddler='$:/state/SnapSVG/Add Mark' $list='svg_groups' $subfilter='+[remove<Test>]'/>
 		</$set>
 	</$button>
 	<$link to=<<currentTiddler>>>
@@ -32,14 +32,14 @@ Add SVG Element to mark:
 	</$link><br>
 </$list>
 
-<$list filter='[[$:/state/SnapJS/Add Mark]get[svg_element]]+[addprefix<open>]+[addsuffix<close>]' variable=Test emptyMessage='Select an element to add it.'>
+<$list filter='[[$:/state/SnapSVG/Add Mark]get[svg_element]]+[addprefix<open>]+[addsuffix<close>]' variable='Test' emptyMessage='Select an element to add it.'>
 	<$button>Add Element
-		<$action-listops $tiddler='$:/state/SnapJS/Add Mark' $list='svg_elements' $subfilter='+[append<Test>]'/>
+		<$action-listops $tiddler='$:/state/SnapSVG/Add Mark' $list='svg_elements' $subfilter='+[append<Test>]'/>
 	</$button>
 </$list>
 
 Add group to mark: 
-<$select tiddler='$:/state/SnapJS/Add Mark' field='svg_group'>
+<$select tiddler='$:/state/SnapSVG/Add Mark' field='svg_group'>
 	<option value=''>--</option>
 		<$list filter='[thing[SVG Group]]'>
 			<option value=<<currentTiddler>>>
@@ -48,10 +48,10 @@ Add group to mark:
 		</$list>
 	</$select>
 
-<$list filter='[list[$:/state/SnapJS/Add Mark!!svg_groups]]'>
+<$list filter='[list[$:/state/SnapSVG/Add Mark!!svg_groups]]'>
 	<$button>Remove
 		<$set name=Test filter='[<currentTiddler>]'>
-			<$action-listops $tiddler='$:/state/SnapJS/Add Mark' $list='svg_groups' $subfilter='+[remove<Test>]'/>
+			<$action-listops $tiddler='$:/state/SnapSVG/Add Mark' $list='svg_groups' $subfilter='+[remove<Test>]'/>
 		</$set>
 	</$button>
 	<$link to=<<currentTiddler>>>
@@ -60,25 +60,25 @@ Add group to mark:
 	<br>
 </$list>
 
-<$list filter='[[$:/state/SnapJS/Add Mark]get[svg_group]]+[addprefix<open>]+[addsuffix<close>]' variable=Test emptyMessage='Select a group to add it.'>
+<$list filter='[[$:/state/SnapSVG/Add Mark]get[svg_group]]+[addprefix<open>]+[addsuffix<close>]' variable='Test' emptyMessage='Select a group to add it.'>
 	<$button>Add Group
-		<$action-listops $tiddler='$:/state/SnapJS/Add Mark' $list='svg_groups' $subfilter='+[append<Test>]'/>
+		<$action-listops $tiddler='$:/state/SnapSVG/Add Mark' $list='svg_groups' $subfilter='+[append<Test>]'/>
 	</$button>
 </$list>
 
 Add animation to mark: 
-<$select tiddler='$:/state/SnapJS/Add Mark' field='svg_animation'>
+<$select tiddler='$:/state/SnapSVG/Add Mark' field='svg_animation'>
 	<option value=''>--</option>
 	<$list filter='[tag[Animation]]'>
 		<option value=<<currentTiddler>>><$view field='animation_name'/></option>
 	</$list>
 </$select>
 
-<$list filter='[list[$:/state/SnapJS/Add Mark!!animations]]'>
+<$list filter='[list[$:/state/SnapSVG/Add Mark!!animations]]'>
 	<$button>Remove
 		<<Test>>
 		<$set name=Test filter='[<currentTiddler>]'>
-			<$action-listops $tiddler='$:/state/SnapJS/Add Mark' $list='svg_groups' $subfilter='+[remove<Test>]'/>
+			<$action-listops $tiddler='$:/state/SnapSVG/Add Mark' $list='svg_groups' $subfilter='+[remove<Test>]'/>
 		</$set>
 	</$button>
 	<$link to=<<currentTiddler>>>
@@ -87,8 +87,8 @@ Add animation to mark:
 	<br>
 </$list>
 
-<$list filter='[[$:/state/SnapJS/Add Mark]get[svg_animation]]+[addprefix<open>]+[addsuffix<close>]' variable=Test emptyMessage='Select an animation to add it.'>
+<$list filter='[[$:/state/SnapSVG/Add Mark]get[svg_animation]]+[addprefix<open>]+[addsuffix<close>]' variable='Test' emptyMessage='Select an animation to add it.'>
 	<$button>Add Animation
-		<$action-listops $tiddler='$:/state/SnapJS/Add Mark' $list='animations' $subfilter='+[append<Test>]'/>
+		<$action-listops $tiddler='$:/state/SnapSVG/Add Mark' $list='animations' $subfilter='+[append<Test>]'/>
 	</$button>
 </$list>

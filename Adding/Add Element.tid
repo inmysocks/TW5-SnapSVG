@@ -1,26 +1,36 @@
 caption: Add Element
-title: $:/plugins/inmysocks/SnapJS/Add Element
+title: $:/plugins/inmysocks/SnapSVG/Add Element
 
 \define AddButton()
 <$button>Add {{$:/state/Add Thing!!add_thing}}
 	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=circle>
-	circle
-		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" circle_radius={{$:/state/Add Thing!!radius}}/>
+		<$action-setfield 
+			$tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" 
+			circle_radius={{$:/state/Add Thing!!radius}}
+		/>
 	</$reveal>
 
 	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=ellipse>
-	ellipse
-		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" x_radius={{$:/state/Add Thing!!x_radius}} y_radius={{$:/state/Add Thing!!y_radius}}/>
+		<$action-setfield 
+			$tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" 
+			x_radius={{$:/state/Add Thing!!x_radius}} 
+			y_radius={{$:/state/Add Thing!!y_radius}}
+		/>
 	</$reveal>
 
 	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=rect>
-	rect
-		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" width={{$:/state/Add Thing!!width}} height={{$:/state/Add Thing!!height}}/>
+		<$action-setfield 
+			$tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" 
+			width={{$:/state/Add Thing!!width}} 
+			height={{$:/state/Add Thing!!height}}
+		/>
 	</$reveal>
 
 	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=polygon>
-	polygon
-		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" points={{$:/state/Add Thing!!points}}/>
+		<$action-setfield 
+			$tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" 
+			points={{$:/state/Add Thing!!points}}
+		/>
 		<$list filter='[[$:/state/Add Thing]list[!!points]first[]]'>
 			<$action-listops $tiddler="""$:/SVG Element/{{$:/state/Add Thing!!add_thing}}/$(ElementName)$""" $list='points' subfilter='+[append{$:/state/Add Thing!!points}'/>
 		</$list>
@@ -30,28 +40,87 @@ title: $:/plugins/inmysocks/SnapJS/Add Element
 	</$reveal>
 
 	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=line>
-	line
-		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" x_1={{$:/state/Add Thing!!x_1}} y_1={{$:/state/Add Thing!!y_1}} x_2={{$:/state/Add Thing!!x_2}} y_2={{$:/state/Add Thing!!y_2}}/>
+		<$action-setfield 
+			$tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" 
+			x_1={{$:/state/Add Thing!!x_1}} 
+			y_1={{$:/state/Add Thing!!y_1}} 
+			x_2={{$:/state/Add Thing!!x_2}} 
+			y_2={{$:/state/Add Thing!!y_2}}
+		/>
 	</$reveal>
 
 	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=image>
-	image
-		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" width={{$:/state/Add Thing!!width}} height={{$:/state/Add Thing!!height}} source={{$:/state/Add Thing!!source}}/>
+		<$action-setfield 
+			$tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" 
+			width={{$:/state/Add Thing!!width}} 
+			height={{$:/state/Add Thing!!height}} 
+			source={{$:/state/Add Thing!!source}}
+		/>
 	</$reveal>
 
 	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=tiddler>
-	tiddler
-		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" width={{$:/state/Add Thing!!width}} height={{$:/state/Add Thing!!height}} image_tiddler={{$:/state/Add Thing!!image_tiddler}}/>
+		<$action-setfield 
+			$tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" 
+			width={{$:/state/Add Thing!!width}} 
+			height={{$:/state/Add Thing!!height}} 
+			image_tiddler={{$:/state/Add Thing!!image_tiddler}}
+		/>
 	</$reveal>
 
 	<$reveal type=match state='$:/state/Add Thing!!add_thing' text=text>
-	text
-		<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" text={{$:/state/Add Thing!!displayed_text}}/>
+		<$action-setfield 
+			$tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" 
+			text={{$:/state/Add Thing!!displayed_text}}
+		/>
 	</$reveal>
 
-	<$action-setfield $tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" tags="""[[SVG Element]] [[$(SelectedSurface)$]]""" element_type={{$:/state/Add Thing!!add_thing}} object_name={{$:/state/Add Thing!!object_name}} dragable={{$:/state/Add Thing!!dragable}} x_position={{$:/state/Add Thing!!x_position}} y_position={{$:/state/Add Thing!!y_position}} fill_color={{$:/state/Add Thing!!fill_color}} object_type=Element xc=0 yc=0  stroke_color={{$:/state/Add Thing!!stroke_color}} stroke_width={{$:/state/Add Thing!!stroke_width}} fill_opacity={{$:/state/Add Thing!!fill_opacity}} class={{$:/state/Add Thing!!class}}/>
+	<$action-setfield 
+		$tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" 
+		tags="""[[SVG Element]] [[$(SelectedSurface)$]]""" 
+		element_type={{$:/state/Add Thing!!add_thing}} 
+		object_name={{$:/state/Add Thing!!object_name}} 
+		dragable={{$:/state/Add Thing!!dragable}} 
+		x_position={{$:/state/Add Thing!!x_position}} 
+		y_position={{$:/state/Add Thing!!y_position}} 
+		fill_color={{$:/state/Add Thing!!fill_color}} 
+		object_type=Element 
+		xc=0 
+		yc=0  
+		stroke_color={{$:/state/Add Thing!!stroke_color}} 
+		stroke_width={{$:/state/Add Thing!!stroke_width}} 
+		fill_opacity={{$:/state/Add Thing!!fill_opacity}} 
+		class={{$:/state/Add Thing!!class}}
+		click={{$:/state/Add Thing!!click}}
+		doubleclick={{$:/state/Add Thing!!doubleclick}}
+	/>
 
-	<$action-setfield $tiddler='$:/state/Add Thing' x_position='' y_position='' height='' width='' object_name='' fill_color='' stroke_color='' stroke_width='' fill_opacity='' source='' image_tiddler='' class='' displayed_text='' x_1='' y_1='' x_2='' y_2='' circle_radius='' y_radius='' x_radius='' radius='' points=''/>
+	<$action-setfield 
+		$tiddler='$:/state/Add Thing' 
+		x_position='' 
+		y_position='' 
+		height='' 
+		width='' 
+		object_name='' 
+		fill_color='' 
+		stroke_color='' 
+		stroke_width='' 
+		fill_opacity='' 
+		source='' 
+		image_tiddler='' 
+		class='' 
+		displayed_text='' 
+		x_1='' 
+		y_1='' 
+		x_2='' 
+		y_2='' 
+		circle_radius='' 
+		y_radius='' 
+		x_radius='' 
+		radius='' 
+		points=''
+		click=''
+		doubleclick=''
+	/>
 
 </$button>
 \end
@@ -298,8 +367,39 @@ Click on `New Point` then click on the svg surface to set the location of that p
 
 </$reveal>
 
+''Input Events'':
+
+Click Action: 
+<$select tiddler='$:/state/Add Thing' field='click'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[tag[Action]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='action_name'/>
+		</option>
+	</$list>
+</$select>
+
+Double Click Action: 
+<$select tiddler='$:/state/Add Thing' field='doubleclick'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[tag[Action]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='action_name'/>
+		</option>
+	</$list>
+</$select>
+
+
 <$reveal type='nomatch' state='$:/state/Add Thing!!object_name' text=''>
-	<$vars ElementName={{$:/state/Add Thing!!object_name}} SelectedSurface={{$:/state/Add Thing!!image}} ElementType={{$:/state/Add Thing!!add_thing}}>
+	<$vars 
+		ElementName={{$:/state/Add Thing!!object_name}} 
+		SelectedSurface={{$:/state/Add Thing!!image}} 
+		ElementType={{$:/state/Add Thing!!add_thing}}
+	>
 		<<AddButton>>
 	</$vars>
 </$reveal>

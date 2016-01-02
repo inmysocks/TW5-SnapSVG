@@ -1,5 +1,5 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapJS/Templates/LineEditTemplate
+title: $:/plugins/inmysocks/SnapSVG/Templates/LineEditTemplate
 
 <$list filter='[is[current]tag[SVG Element]element_type[line]]'>
 	<table>

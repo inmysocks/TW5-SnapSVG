@@ -1,7 +1,4 @@
-created: 20151226180129989
-modified: 20151226215550444
-tags: 
-title: $:/plugins/inmysocks/SnapJS/ReadMe
+title: $:/plugins/inmysocks/SnapSVG/ReadMe
 
 ''For static images''
 
@@ -33,27 +30,27 @@ There are also double click events, they act the same as click event in every wa
 
 To be added: Hover events, right click events, maybe others.
 
-*[[Surfaces|$:/plugins/inmysocks/SnapJS/documentation/Surfaces]]
-*[[Elements|$:/plugins/inmysocks/SnapJS/documentation/Elements]]
-**[[Types of elements|$:/plugins/inmysocks/SnapJS/documentation/Types of elements]]
-**[[Adding Elements|$:/plugins/inmysocks/SnapJS/documentation/Adding Elements]]
-*[[Groups|$:/plugins/inmysocks/SnapJS/documentation/Groups]]
-**[[Adding Groups|$:/plugins/inmysocks/SnapJS/documentation/Adding Groups]]
-*[[Animation|$:/plugins/inmysocks/SnapJS/documentation/Animation]]
-*[[Actions|$:/plugins/inmysocks/SnapJS/documentation/Actions]]
-**[[Add Click Event|$:/plugins/inmysocks/SnapJS/documentation/Add Click Event]]
-**[[Remove Click Event|$:/plugins/inmysocks/SnapJS/documentation/Remove Click Event]]
-**[[Add Double Click Event|$:/plugins/inmysocks/SnapJS/documentation/Add Double Click Event]]
-**[[Remove Double Click Event|$:/plugins/inmysocks/SnapJS/documentation/Remove Double Click Event]]
-**[[Add Hover Event|$:/plugins/inmysocks/SnapJS/documentation/Add Hover Event]]
-**[[Remove Hover Event|$:/plugins/inmysocks/SnapJS/documentation/Remove Hover Event]]
-**[[Add Object|$:/plugins/inmysocks/SnapJS/documentation/Add Object]]
-**[[Remove Object|$:/plugins/inmysocks/SnapJS/documentation/Remove Object]]
-**[[Start Animation|$:/plugins/inmysocks/SnapJS/documentation/Start Animation]]
-**[[Button|$:/plugins/inmysocks/SnapJS/documentation/Button]]
-**[[Write|$:/plugins/inmysocks/SnapJS/documentation/Write]]
-**[[Batch Actions|$:/plugins/inmysocks/SnapJS/documentation/Batch Actions]]
-*[[Input Events|$:/plugins/inmysocks/SnapJS/documentation/Input Events]]
-**[[Click Event|$:/plugins/inmysocks/SnapJS/documentation/Click Event]]
-**[[Double Click Event|$:/plugins/inmysocks/SnapJS/documentation/Double Click Event]]
-**[[Hover Event|$:/plugins/inmysocks/SnapJS/documentation/Hover Event]]
+*[[Surfaces|$:/plugins/inmysocks/SnapSVG/documentation/Surfaces]]
+*[[Elements|$:/plugins/inmysocks/SnapSVG/documentation/Elements]]
+**[[Types of elements|$:/plugins/inmysocks/SnapSVG/documentation/Types of elements]]
+**[[Adding Elements|$:/plugins/inmysocks/SnapSVG/documentation/Adding Elements]]
+*[[Groups|$:/plugins/inmysocks/SnapSVG/documentation/Groups]]
+**[[Adding Groups|$:/plugins/inmysocks/SnapSVG/documentation/Adding Groups]]
+*[[Animation|$:/plugins/inmysocks/SnapSVG/documentation/Animation]]
+*[[Actions|$:/plugins/inmysocks/SnapSVG/documentation/Actions]]
+**[[Add Click Event|$:/plugins/inmysocks/SnapSVG/documentation/Add Click Event]]
+**[[Remove Click Event|$:/plugins/inmysocks/SnapSVG/documentation/Remove Click Event]]
+**[[Add Double Click Event|$:/plugins/inmysocks/SnapSVG/documentation/Add Double Click Event]]
+**[[Remove Double Click Event|$:/plugins/inmysocks/SnapSVG/documentation/Remove Double Click Event]]
+**[[Add Hover Event|$:/plugins/inmysocks/SnapSVG/documentation/Add Hover Event]]
+**[[Remove Hover Event|$:/plugins/inmysocks/SnapSVG/documentation/Remove Hover Event]]
+**[[Add Object|$:/plugins/inmysocks/SnapSVG/documentation/Add Object]]
+**[[Remove Object|$:/plugins/inmysocks/SnapSVG/documentation/Remove Object]]
+**[[Start Animation|$:/plugins/inmysocks/SnapSVG/documentation/Start Animation]]
+**[[Button|$:/plugins/inmysocks/SnapSVG/documentation/Button]]
+**[[Write|$:/plugins/inmysocks/SnapSVG/documentation/Write]]
+**[[Batch Actions|$:/plugins/inmysocks/SnapSVG/documentation/Batch Actions]]
+*[[Input Events|$:/plugins/inmysocks/SnapSVG/documentation/Input Events]]
+**[[Click Event|$:/plugins/inmysocks/SnapSVG/documentation/Click Event]]
+**[[Double Click Event|$:/plugins/inmysocks/SnapSVG/documentation/Double Click Event]]
+**[[Hover Event|$:/plugins/inmysocks/SnapSVG/documentation/Hover Event]]

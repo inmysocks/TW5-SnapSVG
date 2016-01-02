@@ -1,10 +1,10 @@
 caption: Edit Action
-tags: $:/tags/SnapJS/Actions
-title: $:/plugins/inmysocks/SnapJS/Edit Action
+tags: $:/tags/SnapSVG/Actions
+title: $:/plugins/inmysocks/SnapSVG/Edit Action
 
 Select Action to Edit
 
-<$select tiddler='$:/temp/SnapJS/Edit Action' field='selected_action'>
+<$select tiddler='$:/temp/SnapSVG/Edit Action' field='selected_action'>
 	<option value=''>
 		--
 	</option>
@@ -19,8 +19,8 @@ Select Action to Edit
 	</$list>
 </$select>
 
-<$tiddler tiddler={{$:/temp/SnapJS/Edit Action!!selected_action}}>
+<$tiddler tiddler={{$:/temp/SnapSVG/Edit Action!!selected_action}}>
 
-	{{||$:/plugins/inmysocks/SnapJS/Templates/ActionEditTemplate}}
+	{{||$:/plugins/inmysocks/SnapSVG/Templates/ActionEditTemplate}}
 
 </$tiddler>

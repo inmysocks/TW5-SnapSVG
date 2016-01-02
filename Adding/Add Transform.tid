@@ -1,0 +1,51 @@
+caption: Add Transform
+title: $:/plugins/inmysocks/SnapSVG/Add Transform
+
+\define thisMakeAddButton()
+<$button>
+	Add Transform
+	<$action-setfield 
+		$tiddler='$:/SVG Transform/$(TransformName)$'
+		transform_name={{$:/state/SnapSVG/Add Transform!!transform_name}}
+		rotate_angle={{$:/state/SnapSVG/Add Transform!!rotate_angle}}
+		rotate_center_x={{$:/state/SnapSVG/Add Transform!!rotate_center_x}}
+		rotate_center_y={{$:/state/SnapSVG/Add Transform!!rotate_center_y}}
+		scale_x={{$:/state/SnapSVG/Add Transform!!scale_x}}
+		scale_y={{$:/state/SnapSVG/Add Transform!!scale_y}}
+		scale_x0={{$:/state/SnapSVG/Add Transform!!scale_x0}}
+		scale_y0={{$:/state/SnapSVG/Add Transform!!scale_y0}}
+		translate_x={{$:/state/SnapSVG/Add Transform!!translate_x}}
+		translate_y={{$:/state/SnapSVG/Add Transform!!translate_y}}
+	/>
+	<$action-setfield 
+		$tiddler='$:/state/SnapSVG/Add Transform'
+		transform_name=''
+		rotate_angle=''
+		rotate_center_x=''
+		rotate_center_y=''
+		scale_x=''
+		scale_y=''
+		scale_x0=''
+		scale_y0=''
+		translate_x=''
+		translate_y=''
+	/>
+</$button>
+\end
+
+Transform Name:
+<$edit-text tiddler='$:/state/SnapSVG/Add Transform' field='transform_name' class='tc-edit-texteditor'/>
+
+|Rotate Angle |<$edit-text tiddler='$:/state/SnapSVG/Add Transform' field='rotate_angle'/> |
+|Rotate Center X |<$edit-text tiddler='$:/state/SnapSVG/Add Transform' field='rotate_center_x'/> |
+|Rotate Center Y |<$edit-text tiddler='$:/state/SnapSVG/Add Transform' field='rotate_center_y'/> |
+|Scale X |<$edit-text tiddler='$:/state/SnapSVG/Add Transform' field='scale_x'/> |
+|Scale Y |<$edit-text tiddler='$:/state/SnapSVG/Add Transform' field='scale_y'/> |
+|Scale Center X |<$edit-text tiddler='$:/state/SnapSVG/Add Transform' field='scale_x0'/> |
+|Scale Center Y |<$edit-text tiddler='$:/state/SnapSVG/Add Transform' field='scale_y0'/> |
+|Translate X |<$edit-text tiddler='$:/state/SnapSVG/Add Transform' field='translate_x'/> |
+|Translate Y |<$edit-text tiddler='$:/state/SnapSVG/Add Transform' field='translate_y'/> |
+
+<$vars TransformName={{$:/state/SnapSVG/Add Transform!!transform_name}}>
+	<<thisMakeAddButton>>
+</$vars>

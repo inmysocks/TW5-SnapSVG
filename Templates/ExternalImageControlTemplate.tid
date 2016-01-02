@@ -1,5 +1,5 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapJS/ExternalImageControlTemplate
+title: $:/plugins/inmysocks/SnapSVG/ExternalImageControlTemplate
 
 <$list filter='[is[current]element_type[image]]'>
 

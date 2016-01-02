@@ -1,5 +1,5 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapJS/CircleControlTemplate
+title: $:/plugins/inmysocks/SnapSVG/CircleControlTemplate
 
 \define thisMakeSVG()
 <svg id={{!!element_name}} height=$(Height)$ width=$(Width)$>

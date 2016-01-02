@@ -1,8 +1,12 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapJS/RectangleControlTemplate
+title: $:/plugins/inmysocks/SnapSVGVGRectangleControlTemplate
 
 \define thisMakeSVG()
-<svg id={{!!element_name}} height=$(Height)$ width=$(Width)$>
+<svg 
+	id={{!!element_name}} 
+	height=$(Height)$ 
+	width=$(Width)$
+>
 	<rect
 		x=0
 		y=0
@@ -11,22 +15,36 @@ title: $:/plugins/inmysocks/SnapJS/RectangleControlTemplate
 		stroke-width="$(StrokeWidth)$"
 		stroke="#$(StrokeColor)$"
 		fill="#$(FillColor)$"
-transform="translate($(CX)$,$(CY)$)rotate($(Rotation)$)scale($(Scale)$)">
+		transform="translate($(CX)$,$(CY)$)rotate($(Rotation)$)scale($(Scale)$)">
 	</rect>
 </svg>
 \end
 
 <$list filter='[is[current]element_type[rect]]'>
 
-<$vars StrokeColor={{!!stroke_color}} FillColor={{!!fill_color}} CX={{!!x_position}} CY={{!!y_position}} RectWidth={{!!width}} RectHeight={{!!height}} StrokeWidth={{!!stroke_width}} Rotation={{!!rotation}} Scale={{!!scale}} TranslateX={{!!cx}} TranslateY={{!!cy}} Height={{!!view_height}} Width={{!!view_width}}>
-<<thisMakeSVG>>
+<$vars 
+	StrokeColor={{!!stroke_color}} 
+	FillColor={{!!fill_color}} 
+	CX={{!!x_position}} 
+	CY={{!!y_position}} 
+	RectWidth={{!!width}} 
+	RectHeight={{!!height}} 
+	StrokeWidth={{!!stroke_width}} 
+	Rotation={{!!rotation}} 
+	Scale={{!!scale}} 
+	TranslateX={{!!cx}} 
+	TranslateY={{!!cy}} 
+	Height={{!!view_height}} 
+	Width={{!!view_width}}
+>
+	<<thisMakeSVG>>
 </$vars>
 
 You can not drag dragable elements in this view, changes to location here changes the default location for the element.
 
 View height and width control the size of the SVG surface used here to show this element. It has no effect on other surfaces or using the element in an image.<br>
-Set View Height <$edit-text field=view_height/>
-Set View Width: <$edit-text field=view_width/>
+Set View Height <$edit-text field='view_height'/>
+Set View Width: <$edit-text field='view_width'/>
 
 <$checkbox field='dragable' checked=true unchecked=false>Dragable</$checkbox>
 

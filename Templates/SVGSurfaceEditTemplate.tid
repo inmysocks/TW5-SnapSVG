@@ -1,15 +1,18 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapJS/SVGSurfaceEditTemplate
+title: $:/plugins/inmysocks/SnapSVG/SVGSurfaceEditTemplate
 
 <$list filter='[is[current]tag[SVG Image]]'>
 
-<$snap-widget surface={{!!title}}/>
+	<$snap-widget surface={{!!title}}/>
 
-Height: <$edit-text field=height/><br>
-Width: <$edit-text field=width/><br>
-<$checkbox field='play' checked='true' unchecked='false'>Animate</$checkbox><br>
-<$list filter='[tag[Animation]image<currentTiddler>]'>
-<$checkbox field='enabled' checked=true unchecked=false><$view field='animation_name'/></$checkbox> (<$link to=<<currentTiddler>>>Edit</$link>)<br>
-</$list>
+	Height: <$edit-text field='height'/><br>
+	Width: <$edit-text field='width'/><br>
+	<$checkbox field='play' checked='true' unchecked='false'>
+		Animate
+	</$checkbox>
+	<br>
+	<$list filter='[tag[Animation]image<currentTiddler>]'>
+		<$checkbox field='enabled' checked='true' unchecked='false'><$view field='animation_name'/></$checkbox> (<$link to=<<currentTiddler>>>Edit</$link>)<br>
+	</$list>
 
 </$list>
