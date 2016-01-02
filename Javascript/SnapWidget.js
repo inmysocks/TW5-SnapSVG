@@ -171,38 +171,48 @@ This takes a tiddler describing a generic action and performs the action describ
 */
 SnapWidget.prototype.action = function (tiddler, enable) {
 	if (tiddler) {
-		//Check which action type and execute the corresponding function for tha taction type.
-		switch (tiddler.fields.action_type) {
-			case "Add Object":
-				this.addObject(this.wiki.getTiddler(tiddler.fields.action_tiddler));
-				break;
-			case "Remove Object":
-				this.removeObject(tiddler);
-				break;
-			case "Add Click Event":
-				this.addClickEvent(tiddler);
-				break;
-			case "Remove Click Event":
-				this.removeClickEvent(tiddler);
-				break;
-			case "Add Double Click Event":
-				this.addDoubleClickEvent(tiddler);
-				break;
-			case "Remove Double Click Event":
-				this.removeDoubleClickEvent(tiddler);
-				break;
-			case "Button":
-				this.button(tiddler);
-				break;
-			case "Batch":
-				this.executeBatchActions(tiddler);
-				break;
-			case "Animation":
-				this.animate(tiddler.fields.action_tiddler, undefined, enable);
-				break;
-			case "Write":
-				this.writeField(tiddler);
-				break;
+		if (tiddler.fields) {
+		} else {
+			tiddler = this.wiki.getTiddler(tiddler);
+		}
+	}
+	if (tiddler) {
+		if (tiddler.fields.animation_name) {
+			this.animate(tiddler.fields.title, undefined, 'true');
+		} else {
+			//Check which action type and execute the corresponding function for tha taction type.
+			switch (tiddler.fields.action_type) {
+				case "Add Object":
+					this.addObject(this.wiki.getTiddler(tiddler.fields.action_tiddler));
+					break;
+				case "Remove Object":
+					this.removeObject(tiddler);
+					break;
+				case "Add Click Event":
+					this.addClickEvent(tiddler);
+					break;
+				case "Remove Click Event":
+					this.removeClickEvent(tiddler);
+					break;
+				case "Add Double Click Event":
+					this.addDoubleClickEvent(tiddler);
+					break;
+				case "Remove Double Click Event":
+					this.removeDoubleClickEvent(tiddler);
+					break;
+				case "Button":
+					this.button(tiddler);
+					break;
+				case "Batch":
+					this.executeBatchActions(tiddler);
+					break;
+				case "Animation":
+					this.animate(tiddler.fields.action_tiddler, undefined, enable);
+					break;
+				case "Write":
+					this.writeField(tiddler);
+					break;
+			}
 		}
 	}
 };
@@ -234,10 +244,12 @@ This takes a list of actions and executes each one in order.
 	Each of these tiddlers are passed to the action function in sequence.
 */
 SnapWidget.prototype.executeBatchActions = function (tiddler) {
-	var batchActionsFilter = '[[' + tiddler.fields.title + ']indexes[]]';
-	var batchActionsList = $tw.wiki.filterTiddlers(batchActionsFilter);
-	for (var i = 0; i < batchActionsList.length; i++) {
-		this.action(this.wiki.getTiddler(batchActionsList[i]),"true");
+	if (tiddler) {
+		var batchActionsFilter = '[[' + tiddler.fields.title + ']indexes[]]';
+		var batchActionsList = $tw.wiki.filterTiddlers(batchActionsFilter);
+		for (var i = 0; i < batchActionsList.length; i++) {
+			this.action(this.wiki.getTiddler(batchActionsList[i]),"true");
+		}
 	}
 };
 
@@ -515,42 +527,44 @@ SnapWidget.prototype.makeTransformMatrix = function(tiddler) {
 	} else {
 		tiddler = this.wiki.getTiddler(tiddler);
 	}
-	if (tiddler.fields.transform) {
-		var transform_tiddler = this.wiki.getTiddler(tiddler.fields.transform);
-		//Create an empty matrix
-		if (transform_tiddler) {
-			var transformMatrix = Snap.matrix(1,0,0,1,0,0);
-			//Normal scaling
-			if (transform_tiddler.fields.scale) {
-				transformMatrix.scale(transform_tiddler.fields.scale);
+	if (tiddler) {
+		if (tiddler.fields.transform) {
+			var transform_tiddler = this.wiki.getTiddler(tiddler.fields.transform);
+			//Create an empty matrix
+			if (transform_tiddler) {
+				var transformMatrix = Snap.matrix(1,0,0,1,0,0);
+				//Normal scaling
+				if (transform_tiddler.fields.scale) {
+					transformMatrix.scale(transform_tiddler.fields.scale);
+				}
+				var ElementBBox = this.SVGObjects[tiddler.fields.object_name].getBBox();
+				var globalTransform = this.SVGObjects[tiddler.fields.object_name].transform();
+				var initial_x = globalTransform.localMatrix.invert().x(ElementBBox.cx,ElementBBox.cy);
+				var initial_y = globalTransform.localMatrix.invert().y(ElementBBox.cx,ElementBBox.cy);
+				//This can scale x and y differently and set the center of the scaling
+				var scale_x, scale_y, scale_x0, scale_y0;
+				scale_x = transform_tiddler.fields.scale_x ? transform_tiddler.fields.scale_x:1;
+				scale_y = transform_tiddler.fields.scale_y ? transform_tiddler.fields.scale_y:1;
+				scale_x0 = transform_tiddler.fields.scale_x0 ? Number(transform_tiddler.fields.scale_x0)+initial_x:initial_x;
+				scale_y0 = transform_tiddler.fields.scale_y0 ? Number(transform_tiddler.fields.scale_y0)+initial_y:initial_y;
+				transformMatrix.scale(scale_x, scale_y, scale_x0, scale_y0);
+				//This takes care of translation
+				var translate_x, translate_y;
+				translate_x = transform_tiddler.fields.translate_x ? Number(transform_tiddler.fields.translate_x):0;
+				translate_y = transform_tiddler.fields.translate_y ? Number(transform_tiddler.fields.translate_y):0;
+				transformMatrix.translate(translate_x,translate_y);
+				//This takes care of rotation
+				var rotate_angle, rotate_center_x, rotate_center_y;
+				rotate_angle = transform_tiddler.fields.rotate_angle ? transform_tiddler.fields.rotate_angle:0;
+				rotate_center_x = transform_tiddler.fields.rotate_center_x ? Number(transform_tiddler.fields.rotate_center_x)+initial_x:initial_x;
+				rotate_center_y = transform_tiddler.fields.rotate_center_y ? Number(transform_tiddler.fields.rotate_center_y)+initial_y:initial_y;
+				transformMatrix.rotate(rotate_angle, rotate_center_x, rotate_center_y);
+				
+				return transformMatrix;
 			}
-			var ElementBBox = this.SVGObjects[tiddler.fields.object_name].getBBox();
-			var globalTransform = this.SVGObjects[tiddler.fields.object_name].transform();
-			var initial_x = globalTransform.localMatrix.invert().x(ElementBBox.cx,ElementBBox.cy);
-			var initial_y = globalTransform.localMatrix.invert().y(ElementBBox.cx,ElementBBox.cy);
-			//This can scale x and y differently and set the center of the scaling
-			var scale_x, scale_y, scale_x0, scale_y0;
-			scale_x = transform_tiddler.fields.scale_x ? transform_tiddler.fields.scale_x:1;
-			scale_y = transform_tiddler.fields.scale_y ? transform_tiddler.fields.scale_y:1;
-			scale_x0 = transform_tiddler.fields.scale_x0 ? Number(transform_tiddler.fields.scale_x0)+initial_x:initial_x;
-			scale_y0 = transform_tiddler.fields.scale_y0 ? Number(transform_tiddler.fields.scale_y0)+initial_y:initial_y;
-			transformMatrix.scale(scale_x, scale_y, scale_x0, scale_y0);
-			//This takes care of translation
-			var translate_x, translate_y;
-			translate_x = transform_tiddler.fields.translate_x ? Number(transform_tiddler.fields.translate_x):0;
-			translate_y = transform_tiddler.fields.translate_y ? Number(transform_tiddler.fields.translate_y):0;
-			transformMatrix.translate(translate_x,translate_y);
-			//This takes care of rotation
-			var rotate_angle, rotate_center_x, rotate_center_y;
-			rotate_angle = transform_tiddler.fields.rotate_angle ? transform_tiddler.fields.rotate_angle:0;
-			rotate_center_x = transform_tiddler.fields.rotate_center_x ? Number(transform_tiddler.fields.rotate_center_x)+initial_x:initial_x;
-			rotate_center_y = transform_tiddler.fields.rotate_center_y ? Number(transform_tiddler.fields.rotate_center_y)+initial_y:initial_y;
-			transformMatrix.rotate(rotate_angle, rotate_center_x, rotate_center_y);
-			
-			return transformMatrix;
+		} else {
+			return false;
 		}
-	} else {
-		return false;
 	}
 };
 
@@ -655,7 +669,7 @@ SnapWidget.prototype.animate = function (tiddler, triggeringAnimation, enable) {
 				var globalTransform = this.SVGObjects[animationTiddler.fields.object_name].transform();
 				var thisTransform = {};
 				if (globalTransform && animationTransformMatrix) {
-					if (animationTiddler.fields.invert === "false") {
+					if (animationTiddler.fields.invert === "false" || animationTiddler.fields.invertable === "false") {
 						$tw.wiki.setText(animationTiddler.fields.title, 'invert', undefined, 'true');
 						this.SVGObjects[animationTiddler.fields.object_name].attr(objectAttributes);
 						thisTransform['transform'] = globalTransform.localMatrix.add(animationTransformMatrix);
@@ -666,7 +680,7 @@ SnapWidget.prototype.animate = function (tiddler, triggeringAnimation, enable) {
 						this.SVGObjects[animationTiddler.fields.object_name].attr(objectAttributes);
 						thisTransform['transform'] =globalTransform.local;
 					}
-					this.SVGObjects[animationTiddler.fields.object_name].animate(thisTransform,Number(animationTiddler.fields.duration));
+					this.SVGObjects[animationTiddler.fields.object_name].animate(thisTransform, Number(animationTiddler.fields.duration), mina.linear, this.action.bind(this, animationTiddler.fields.next));
 				}
 			} else {
 				if (animationTiddler.fields.target_location) {
@@ -701,11 +715,13 @@ SnapWidget.prototype.animate = function (tiddler, triggeringAnimation, enable) {
 				}
 				if (animationTiddler.fields.effect !== '') {
 					if (this.SVGObjects[animationTiddler.fields.object_name]) {
-						this.SVGObjects[animationTiddler.fields.object_name].animate(animationParameters, duration, mina[animationTiddler.fields.effect], this.animate.bind(this, animationTiddler.fields.next, animationTiddler.fields.title));
+						this.SVGObjects[animationTiddler.fields.object_name].animate(animationParameters, duration, mina[animationTiddler.fields.effect], this.action.bind(this, animationTiddler.fields.next));
+						$tw.wiki.setText(animationTiddler.fields.title, "finished", undefined, "true");
 					}
 				} else {
 					if (this.SVGObjects[animationTiddler.fields.object_name]) {
-						this.SVGObjects[animationTiddler.fields.object_name].animate(animationParameters, duration, mina.linear, this.animate.bind(this, animationTiddler.fields.next, animationTiddler.fields.title));
+						this.SVGObjects[animationTiddler.fields.object_name].animate(animationParameters, duration, mina.linear, this.action.bind(this, animationTiddler.fields.next));
+						$tw.wiki.setText(animationTiddler.fields.title, "finished", undefined, "true");
 					}
 				}
 			}

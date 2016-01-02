@@ -6,6 +6,7 @@ title: $:/plugins/inmysocks/SnapSVG/Add Transform
 	Add Transform
 	<$action-setfield 
 		$tiddler='$:/SVG Transform/$(TransformName)$'
+		tags='[[SVG Transform]]'
 		transform_name={{$:/state/SnapSVG/Add Transform!!transform_name}}
 		rotate_angle={{$:/state/SnapSVG/Add Transform!!rotate_angle}}
 		rotate_center_x={{$:/state/SnapSVG/Add Transform!!rotate_center_x}}
