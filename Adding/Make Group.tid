@@ -55,6 +55,32 @@ Select Image:
 	</$list>
 </$select>
 
+''Input Events'':
+
+Click Action: 
+<$select tiddler='$:/state/Add Thing' field='click'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[tag[Action]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='action_name'/>
+		</option>
+	</$list>
+</$select>
+
+Double Click Action: 
+<$select tiddler='$:/state/Add Thing' field='doubleclick'>
+	<option value=''>
+		--
+	</option>
+	<$list filter='[tag[Action]]'>
+		<option value=<<currentTiddler>>>
+			<$view field='action_name'/>
+		</option>
+	</$list>
+</$select>
+
 Add Objects to Group:
 
 <$select tiddler='$:/state/Make Group' field='elemet_to_add'>

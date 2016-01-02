@@ -100,25 +100,3 @@ __<<ThisActionType>>__
 </$list>
 
 </$reveal>
-
-<$reveal type='nomatch' state='$:/state/SVG Contents/Input Events' text='show'>
-
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Input Events' setTo='show'>{{$:/core/images/right-arrow}} Input Events</$button>
-
-</$reveal>
-
-<$reveal type='match' state='$:/state/SVG Contents/Input Events' text='show'>
-
-!!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Input Events' setTo='hide'>{{$:/core/images/down-arrow}} Input Events</$button>
-
-<$list filter='[tag[Input Event]has[event_type]each[event_type]get[event_type]]' variable='ThisInputType'>
-
-__<<ThisInputType>>__
-
-<$list filter='[tag[Input Event]event_type<ThisInputType>]'>
-<$link to=<<currentTiddler>>><$view field='event_name'/></$link><br>
-</$list>
-
-</$list>
-
-</$reveal>

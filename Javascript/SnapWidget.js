@@ -325,25 +325,6 @@ SnapWidget.prototype.addObject = function (tiddler) {
 					if (tiddler.fields.contents) {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
 						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.rect(tiddler.fields.x_position,tiddler.fields.y_position,tiddler.fields.width,tiddler.fields.height,rx,ry));
-						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
-						if (thisTiddler) {
-							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
-							var actionText = thisTiddler.fields.text;
-							var parsed;
-							var widgets;
-							var container;
-							var stringPassed;
-
-							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
-							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
-							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
-							container = $tw.fakeDocument.createElement("div");
-							widgets.setVariable("currentTiddler", tiddler.fields.title);
-							widgets.render(container, null);
-							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
-							bob.node.innerHTML = container.innerHTML;
-						}
-						this.SVGObjects[tiddler.fields.object_name].add(bob);
 					} else {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.rect(tiddler.fields.x_position,tiddler.fields.y_position,tiddler.fields.width,tiddler.fields.height,rx,ry);
 					}
@@ -352,25 +333,6 @@ SnapWidget.prototype.addObject = function (tiddler) {
 					if (tiddler.fields.contents) {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
 						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.circle(tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.circle_radius));
-						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
-						if (thisTiddler) {
-							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
-							var actionText = thisTiddler.fields.text;
-							var parsed;
-							var widgets;
-							var container;
-							var stringPassed;
-
-							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
-							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
-							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
-							container = $tw.fakeDocument.createElement("div");
-							widgets.setVariable("currentTiddler", tiddler.fields.title);
-							widgets.render(container, null);
-							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
-							bob.node.innerHTML = container.innerHTML;
-						}
-						this.SVGObjects[tiddler.fields.object_name].add(bob);
 					} else {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.circle(tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.circle_radius);
 					}
@@ -379,25 +341,6 @@ SnapWidget.prototype.addObject = function (tiddler) {
 					if (tiddler.fields.contents) {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
 						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.ellipse(tiddler.fields.x_position,tiddler.fields.y_position,tiddler.fields.x_radius,tiddler.fields.y_radius));
-						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
-						if (thisTiddler) {
-							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
-							var actionText = thisTiddler.fields.text;
-							var parsed;
-							var widgets;
-							var container;
-							var stringPassed;
-
-							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
-							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
-							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
-							container = $tw.fakeDocument.createElement("div");
-							widgets.setVariable("currentTiddler", tiddler.fields.title);
-							widgets.render(container, null);
-							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
-							bob.node.innerHTML = container.innerHTML;
-						}
-						this.SVGObjects[tiddler.fields.object_name].add(bob);
 					} else {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.ellipse(tiddler.fields.x_position,tiddler.fields.y_position,tiddler.fields.x_radius,tiddler.fields.y_radius);
 					}
@@ -406,25 +349,6 @@ SnapWidget.prototype.addObject = function (tiddler) {
 					if (tiddler.fields.contents) {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
 						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.line(tiddler.fields.x_1,tiddler.fields.y_1,tiddler.fields.x_2,tiddler.fields.y_2));
-						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
-						if (thisTiddler) {
-							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
-							var actionText = thisTiddler.fields.text;
-							var parsed;
-							var widgets;
-							var container;
-							var stringPassed;
-
-							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
-							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
-							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
-							container = $tw.fakeDocument.createElement("div");
-							widgets.setVariable("currentTiddler", tiddler.fields.title);
-							widgets.render(container, null);
-							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
-							bob.node.innerHTML = container.innerHTML;
-						}
-						this.SVGObjects[tiddler.fields.object_name].add(bob);
 					} else {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.line(tiddler.fields.x_1,tiddler.fields.y_1,tiddler.fields.x_2,tiddler.fields.y_2);
 					}
@@ -433,25 +357,6 @@ SnapWidget.prototype.addObject = function (tiddler) {
 					if (tiddler.fields.contents) {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
 						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.polygon(tiddler.fields.points));
-						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
-						if (thisTiddler) {
-							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
-							var actionText = thisTiddler.fields.text;
-							var parsed;
-							var widgets;
-							var container;
-							var stringPassed;
-
-							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
-							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
-							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
-							container = $tw.fakeDocument.createElement("div");
-							widgets.setVariable("currentTiddler", tiddler.fields.title);
-							widgets.render(container, null);
-							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
-							bob.node.innerHTML = container.innerHTML;
-						}
-						this.SVGObjects[tiddler.fields.object_name].add(bob);
 					} else {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.polygon(tiddler.fields.points);
 					}
@@ -460,37 +365,12 @@ SnapWidget.prototype.addObject = function (tiddler) {
 					if (tiddler.fields.contents) {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
 						this.SVGObjects[tiddler.fields.object_name].add(this.SVG.image(tiddler.fields.source, tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.width, tiddler.fields.height));
-						var thisTiddler = this.wiki.getTiddler(tiddler.fields.contents);
-						if (thisTiddler) {
-							var bbox = this.SVGObjects[tiddler.fields.object_name].getBBox();
-							var actionText = thisTiddler.fields.text;
-							var parsed;
-							var widgets;
-							var container;
-							var stringPassed;
-
-							stringPassed = "<$importvariables filter='[[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]'>"+actionText+"</$importvariables>";
-							parsed = $tw.wiki.parseText("text/vnd.tiddlywiki", stringPassed, {});
-							widgets = $tw.wiki.makeWidget(parsed, {parentWidget:$tw.rootWidget});
-							container = $tw.fakeDocument.createElement("div");
-							widgets.setVariable("currentTiddler", tiddler.fields.title);
-							widgets.render(container, null);
-							var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
-							bob.node.innerHTML = container.innerHTML;
-						}
-						this.SVGObjects[tiddler.fields.object_name].add(bob);
 					} else {
 						this.SVGObjects[tiddler.fields.object_name] = this.SVG.image(tiddler.fields.source, tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.width, tiddler.fields.height);
 					}
 					break;
 				case "text":
-					if (tiddler.fields.contents) {
-						this.SVGObjects[tiddler.fields.object_name] = this.SVG.g();
-						this.SVGObjects[tiddler.fields.object_name].add();
-						this.SVGObjects[tiddler.fields.object_name].add();
-					} else {
-						this.SVGObjects[tiddler.fields.object_name] = this.SVG.text(tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.text);
-					}
+					this.SVGObjects[tiddler.fields.object_name] = this.SVG.text(tiddler.fields.x_position, tiddler.fields.y_position, tiddler.fields.text);
 					break;
 				case "tiddler":
 					var imageTiddler = this.wiki.getTiddler(tiddler.fields.image_tiddler);
@@ -519,6 +399,7 @@ SnapWidget.prototype.addObject = function (tiddler) {
 					widgets.render(container, null);
 					var bob = this.SVG.el("foreignObject").attr({'width': Number(0.9*bbox.w),'height':Number(0.9*bbox.h),'x':Number(bbox.x+0.05*bbox.w),'y':Number(bbox.y+0.05*bbox.h),'requiredExtensions':'http://www.w3.org/1999/xhtml'}).remove();
 					bob.node.innerHTML = container.innerHTML;
+					this.SVGObjects[tiddler.fields.object_name].add(bob);
 				}
 			}
 		}
@@ -616,30 +497,8 @@ SnapWidget.prototype.objectTransforms = function (tiddler) {
 				var thisTransform = {};
 				thisTransform['transform'] = globalTransform.localMatrix.add(animationTransformMatrix);
 				this.SVGObjects[tiddler.fields.object_name].animate(thisTransform,0);
-				/*
-				if (tiddler.fields.mask) {
-					var mask = this.SVGObjects[tiddler.fields.mask].clone();
-					var split = globalTransform.globalMatrix.split();
-					mask.transform(globalTransform.globalMatrix.invert().translate(split.dx,split.dy).add(animationTransformMatrix.invert()));
-					mask.attr({fill:"#fff",height:400,width:400});
-					mask.remove();
-					console.log(mask);
-					this.SVGObjects[tiddler.fields.object_name].attr({'mask':mask});
-				}
-				*/
 			}
 		}
-		/*
-		if (tiddler.fields.mask) {
-			var mask = this.SVGObjects[tiddler.fields.mask].clone();
-			var split = globalTransform.globalMatrix.split();
-			mask.transform(globalTransform.globalMatrix.invert().translate(split.dx,split.dy).add(animationTransformMatrix.invert()));
-			mask.attr({fill:"#fff",height:400,width:400});
-			mask.remove();
-			console.log(mask);
-			this.SVGObjects[tiddler.fields.object_name].attr({'mask':mask});
-		}
-		*/
 		object = this.SVGObjects[tiddler.fields.object_name];
 		if (tiddler.fields.dragable === "true" && object) {
 			this.objectDrag(tiddler, object);
@@ -667,13 +526,8 @@ SnapWidget.prototype.makeTransformMatrix = function(tiddler) {
 			}
 			var ElementBBox = this.SVGObjects[tiddler.fields.object_name].getBBox();
 			var globalTransform = this.SVGObjects[tiddler.fields.object_name].transform();
-			if (tiddler.fields.invert === "true") {
-				var initial_x = globalTransform.localMatrix.invert().x(ElementBBox.cx,ElementBBox.cy);
-				var initial_y = globalTransform.localMatrix.invert().y(ElementBBox.cx,ElementBBox.cy);
-			} else {
-				var initial_x = globalTransform.localMatrix.invert().x(ElementBBox.cx,ElementBBox.cy) ;
-				var initial_y = globalTransform.localMatrix.invert().y(ElementBBox.cx,ElementBBox.cy) ;
-			}
+			var initial_x = globalTransform.localMatrix.invert().x(ElementBBox.cx,ElementBBox.cy);
+			var initial_y = globalTransform.localMatrix.invert().y(ElementBBox.cx,ElementBBox.cy);
 			//This can scale x and y differently and set the center of the scaling
 			var scale_x, scale_y, scale_x0, scale_y0;
 			scale_x = transform_tiddler.fields.scale_x ? transform_tiddler.fields.scale_x:1;
