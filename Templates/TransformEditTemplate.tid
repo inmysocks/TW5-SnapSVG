@@ -1,7 +1,7 @@
 tags: $:/tags/ViewTemplate
 title: $:/plugins/inmysocks/SnapSVG/Templates/TransformEditTemplate
 
-<$list filter='[is[current]tag[SVG Transform]]'>
+<$list filter='[is[current]type[SVG Transform]]'>
 	Transform Name:
 	<$edit-text field='transform_name' class='tc-edit-texteditor'/>
 

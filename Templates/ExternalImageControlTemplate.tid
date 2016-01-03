@@ -1,7 +1,7 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapSVG/ExternalImageControlTemplate
+title: $:/plugins/inmysocks/SnapSVG/Template/ExternalImageControlTemplate
 
-<$list filter='[is[current]element_type[image]]'>
+<$list filter='[is[current]type[SVG Element]element_type[image]]'>
 
 <$checkbox field='dragable' checked=true unchecked=false>Dragable</$checkbox>
 
@@ -21,5 +21,7 @@ Stroke Color: <$edit-text field='stroke_color'/><br>
 Stroke Width: <$edit-text field='stroke_width'/><br>
 Layer: <$edit-text field='order'/> (Higher numbers cover lower numbers)<br>
 Class: <$edit-text field='class'/><br>
+Click: <$edit-text field='click'/><br>
+Double Click: <$edit-text field='doubleclick'/><br>
 
 </$list>

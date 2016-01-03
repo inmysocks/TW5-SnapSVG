@@ -20,11 +20,11 @@ type: text/vnd.tiddlywiki
 
 !!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Elements' setTo='hide'>{{$:/core/images/down-arrow}}Elements</$button>
 
-<$list filter='[tag[SVG Element]each[element_type]get[element_type]]'>
+<$list filter='[type[SVG Element]each[element_type]get[element_type]]'>
 
 !!!__<<currentTiddler>>__
 
-<$list filter='[tag[SVG Element]element_type<currentTiddler>]'>
+<$list filter='[type[SVG Element]element_type<currentTiddler>]'>
 <$link to=<<currentTiddler>>><$view field='object_name'/></$link><br>
 </$list>
 </$list>
@@ -41,7 +41,7 @@ type: text/vnd.tiddlywiki
 
 !!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Groups' setTo='hide'>{{$:/core/images/down-arrow}}Groups</$button>
 
-<$list filter='[object_type[Group]]'>
+<$list filter='[type[SVG Group]]'>
 <$link to=<<currentTiddler>>><$view field='object_name'/></$link><br>
 </$list>
 
@@ -57,7 +57,7 @@ type: text/vnd.tiddlywiki
 
 !!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Transforms' setTo='hide'>{{$:/core/images/down-arrow}}Transforms</$button>
 
-<$list filter='[tag[SVG Transform]]'>
+<$list filter='[type[SVG Transform]]'>
 <$link to=<<currentTiddler>>><$view field='transform_name'/></$link><br>
 </$list>
 
@@ -73,7 +73,7 @@ type: text/vnd.tiddlywiki
 
 !!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Animations' setTo='hide'>{{$:/core/images/down-arrow}}Animations</$button>
 
-<$list filter='[tag[Animation]]'>
+<$list filter='[type[SVG Animation]]'>
 <$link to=<<currentTiddler>>><$view field='animation_name'/></$link><br>
 </$list>
 
@@ -89,11 +89,11 @@ type: text/vnd.tiddlywiki
 
 !!!<$button class='tc-btn-invisible' set='$:/state/SVG Contents/Actions' setTo='hide'>{{$:/core/images/down-arrow}}Actions</$button>
 
-<$list filter='[tag[Action]has[action_type]each[action_type]get[action_type]]' variable='ThisActionType'>
+<$list filter='[type[Action][has[action_type]each[action_type]get[action_type]]' variable='ThisActionType'>
 
 __<<ThisActionType>>__
 
-<$list filter='[tag[Action]action_type<ThisActionType>]'>
+<$list filter='[type[Action]action_type<ThisActionType>]'>
 <$link to=<<currentTiddler>>><$view field='action_name'/></$link><br>
 </$list>
 

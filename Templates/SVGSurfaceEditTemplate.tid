@@ -1,7 +1,7 @@
 tags: $:/tags/ViewTemplate
 title: $:/plugins/inmysocks/SnapSVG/SVGSurfaceEditTemplate
 
-<$list filter='[is[current]tag[SVG Image]]'>
+<$list filter='[is[current]type[SVG Image]]'>
 
 	<$snap-widget surface={{!!title}}/>
 
@@ -11,7 +11,7 @@ title: $:/plugins/inmysocks/SnapSVG/SVGSurfaceEditTemplate
 		Animate
 	</$checkbox>
 	<br>
-	<$list filter='[tag[Animation]image<currentTiddler>]'>
+	<$list filter='[type[SVG Animation]image<currentTiddler>]'>
 		<$checkbox field='enabled' checked='true' unchecked='false'><$view field='animation_name'/></$checkbox> (<$link to=<<currentTiddler>>>Edit</$link>)<br>
 	</$list>
 

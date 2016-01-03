@@ -16,7 +16,10 @@ Select type to edit:
 		SVG Group
 	</option>
 	<option>
-		Animation
+		SVG Animation
+	</option>
+	<option>
+		SVG Transform
 	</option>
 </$select>
 
@@ -28,7 +31,7 @@ Select type to edit:
 		<option value=''>
 			--
 		</option>
-		<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+		<$list filter='[all[tiddlers+system+shadows]type[SVG Image]]'>
 			<option>
 				<$view field='title'/>
 			</option>
@@ -45,9 +48,9 @@ Select type to edit:
 		<option value=''>
 			--
 		</option>
-		<$list filter='[tag[SVG Element]has[element_type]each[element_type]get[element_type]]'>
+		<$list filter='[type[SVG Element]has[element_type]each[element_type]get[element_type]]'>
 			<optgroup label=<<currentTiddler>>>
-				<$list filter='[tag[SVG Element]element_type<currentTiddler>]'>
+				<$list filter='[type[SVG Element]element_type<currentTiddler>]'>
 					<option value={{!!title}}>
 						<$view field='object_name'/>
 					</option>
@@ -87,7 +90,7 @@ Select type to edit:
 		<option value=''>
 			--
 		</option>
-		<$list filter='[object_type[Group]]'>
+		<$list filter='[type[Group]]'>
 			<option value=<<currentTiddler>>>
 				<$view field='object_name'/>
 			</option>
@@ -102,7 +105,7 @@ Select type to edit:
 		<option value=''>
 			--
 		</option>
-		<$list filter='[tag[Animation]]'>
+		<$list filter='[type[Animation]]'>
 			<option value={{!!title}}>
 				<$view field='animation_name'/>
 			</option>

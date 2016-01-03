@@ -1,5 +1,5 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapSVGVGRectangleControlTemplate
+title: $:/plugins/inmysocks/SnapSVG/RectangleControlTemplate
 
 \define thisMakeSVG()
 <svg 
@@ -20,7 +20,7 @@ title: $:/plugins/inmysocks/SnapSVGVGRectangleControlTemplate
 </svg>
 \end
 
-<$list filter='[is[current]element_type[rect]]'>
+<$list filter='[is[current]type[SVG Element]element_type[rect]]'>
 
 <$vars 
 	StrokeColor={{!!stroke_color}} 
@@ -62,4 +62,6 @@ Stroke Color: <$edit-text field='stroke_color'/><br>
 Stroke Width: <$edit-text field='stroke_width'/><br>
 Layer: <$edit-text field='order'/> (Higher numbers cover lower numbers)<br>
 Class: <$edit-text field='class'/><br>
+Click: <$edit-text field='click'/><br>
+Double Click: <$edit-text field='doubleclick'/><br>
 </$list>

@@ -1,5 +1,5 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapSVG/CircleControlTemplate
+title: $:/plugins/inmysocks/SnapSVG/Templates/CircleControlTemplate
 
 \define thisMakeSVG()
 <svg id={{!!element_name}} height=$(Height)$ width=$(Width)$>
@@ -15,7 +15,7 @@ transform="translate($(CX)$,$(CY)$)scale($(Scale)$)">
 </svg>
 \end
 
-<$list filter='[is[current]tag[SVG Element]element_type[circle]]'>
+<$list filter='[is[current]type[SVG Element]element_type[circle]]'>
 
 <$vars StrokeColor={{!!stroke_color}} FillColor={{!!fill_color}} CX={{!!x_position}} CY={{!!y_position}} R={{!!circle_radius}} StrokeWidth={{!!stroke_width}} Rotation={{!!rotation}} Scale={{!!scale}} TranslateX={{!!cx}} TranslateY={{!!cy}} Height={{!!view_height}} Width={{!!view_width}}>
 <<thisMakeSVG>>
@@ -39,6 +39,8 @@ Stroke Color: <$edit-text field='stroke_color'/><br>
 Stroke Width: <$edit-text field='stroke_width'/><br>
 Layer: <$edit-text field='order'/> (Higher numbers cover lower numbers)<br>
 Class: <$edit-text field='class'/><br>
+Click: <$edit-text field='click'/><br>
+Double Click: <$edit-text field='doubleclick'/><br>
 
 Radius: <$range field='circle_radius' min=1 max=100 step=5/><br>
 </$list>

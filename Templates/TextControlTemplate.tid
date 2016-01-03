@@ -1,7 +1,7 @@
 tags: $:/tags/ViewTemplate
 title: $:/plugins/inmysocks/SnapSVG/TextControlTemplate
 
-<$list filter='[is[current]tag[SVG Element]element_type[text]]'>
+<$list filter='[is[current]type[SVG Element]element_type[text]]'>
 
 <$checkbox field='dragable' checked=true unchecked=false>Dragable</$checkbox>
 
@@ -16,6 +16,8 @@ Stroke Color: <$edit-text field='stroke_color' class='tc-edit-texteditor'/><br>
 Stroke Width: <$edit-text field='stroke_width' class='tc-edit-texteditor'/><br>
 Layer: <$edit-text field='order' class='tc-edit-texteditor'/> (Higher numbers cover lower numbers)<br>
 Class: <$edit-text field='class' class='tc-edit-texteditor'/><br>
+Click: <$edit-text field='click'/><br>
+Double Click: <$edit-text field='doubleclick'/><br>
 
 Text: <$edit-text field=text class='tc-edit-texteditor'/><br>
 </$list>

@@ -1,79 +1,16 @@
 tags: $:/tags/ViewTemplate
 title: $:/plugins/inmysocks/SnapSVG/Templates/LineEditTemplate
 
-<$list filter='[is[current]tag[SVG Element]element_type[line]]'>
-	<table>
-		<tr>
-			<td>
-				X1
-			</td>
-			<td>
-				<$edit-text field='x_1'/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Y1
-			</td>
-			<td>
-				<$edit-text field='y_1'/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				X2
-			</td>
-			<td>
-				<$edit-text field='x_2'/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Y2
-			</td>
-			<td>
-				<$edit-text field='y_2'/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Fill color 
-			</td>
-			<td>
-				<$edit-text field='fill_color'/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Fill Opacity
-			</td>
-			<td>
-				<$edit-text field='fill_opacity'/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Stroke Color
-			</td>
-			<td>
-				<$edit-text field='stroke_color'/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Stroke Width
-			</td>
-			<td>
-				<$edit-text field='stroke_width'/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Class
-			</td>
-			<td>
-				<$edit-text field='class'/>
-			</td>
-		</tr>
-	</table>
+<$list filter='[is[current]type[SVG Element]element_type[line]]'>
+
+|X1 |<$edit-text field='x_1'/> |
+|Y1 |<$edit-text field='y_1'/> |
+|X2 |<$edit-text field='x_2'/> 
+|Y2 |<$edit-text field='y_2'/> |
+|Fill color  |<$edit-text field='fill_color'/> |
+|Fill Opacity |<$edit-text field='fill_opacity'/> |
+|Stroke Color |<$edit-text field='stroke_color'/> |
+|Stroke Width |<$edit-text field='stroke_width'/> |
+|Class |<$edit-text field='class'/> |
+
 </$list>

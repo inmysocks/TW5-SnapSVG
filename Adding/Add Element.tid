@@ -76,7 +76,7 @@ title: $:/plugins/inmysocks/SnapSVG/Add Element
 
 	<$action-setfield 
 		$tiddler="""$:/SVG Element/$(ElementType)$/$(ElementName)$""" 
-		tags="""[[SVG Element]] [[$(SelectedSurface)$]]""" 
+		tags="""[[$(SelectedSurface)$]]""" 
 		element_type={{$:/state/Add Thing!!add_thing}} 
 		object_name={{$:/state/Add Thing!!object_name}} 
 		dragable={{$:/state/Add Thing!!dragable}} 
@@ -92,6 +92,7 @@ title: $:/plugins/inmysocks/SnapSVG/Add Element
 		class={{$:/state/Add Thing!!class}}
 		click={{$:/state/Add Thing!!click}}
 		doubleclick={{$:/state/Add Thing!!doubleclick}}
+		type='SVG Element'
 	/>
 
 	<$action-setfield 
@@ -140,7 +141,7 @@ Add to which image?
 	<option value=''>
 		--
 	</option>
-	<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+	<$list filter='[all[tiddlers+system+shadows]type[SVG Image]]'>
 		<option value=<<currentTiddler>>>
 			<$view field='title'/>
 		</option>
@@ -374,7 +375,7 @@ Click Action:
 	<option value=''>
 		--
 	</option>
-	<$list filter='[tag[Action]]'>
+	<$list filter='[type[SVG Action]]'>
 		<option value=<<currentTiddler>>>
 			<$view field='action_name'/>
 		</option>
@@ -386,7 +387,7 @@ Double Click Action:
 	<option value=''>
 		--
 	</option>
-	<$list filter='[tag[Action]]'>
+	<$list filter='[type[SVG Action]]'>
 		<option value=<<currentTiddler>>>
 			<$view field='action_name'/>
 		</option>

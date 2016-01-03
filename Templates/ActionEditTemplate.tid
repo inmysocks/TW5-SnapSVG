@@ -1,7 +1,7 @@
 tags: $:/tags/ViewTemplate
 title: $:/plugins/inmysocks/SnapSVG/Templates/ActionEditTemplate
 
-<$list filter='[is[current]tag[Action]]'>
+<$list filter='[is[current]type[SVG Action]]'>
 	<$reveal type='match' state='!!action_type' text=Button>
 
 		<$edit-text class='tc-edit-texteditor'/>
@@ -14,7 +14,7 @@ title: $:/plugins/inmysocks/SnapSVG/Templates/ActionEditTemplate
 			<option value=''>
 				--
 			</option>
-			<$list filter='[tag[Action]]'>
+			<$list filter='[type[SVG Action]]'>
 				<option value=<<currentTiddler>>>
 					<$view field='action_name'/>
 				</option>
@@ -68,7 +68,7 @@ title: $:/plugins/inmysocks/SnapSVG/Templates/ActionEditTemplate
 			<option value=''>
 				--
 			</option>
-			<$list filter='[tag[Action]]'>
+			<$list filter='[type[SVG Action]]'>
 				<option value=<<currentTiddler>>>
 					<$view field='action_name'/>
 				</option>

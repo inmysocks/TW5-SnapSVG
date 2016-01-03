@@ -7,7 +7,7 @@ Select Image:
 	<option value=''>
 		--
 	</option>
-	<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+	<$list filter='[all[tiddlers+system+shadows]type[SVG Image]]'>
 		<option value=<<currentTiddler>>>
 			<$view field='title'/>
 		</option>
@@ -31,7 +31,7 @@ Select Image:
 
 	Contained Elements:
 
-	<$list filter='[tag[SVG Element]]'>
+	<$list filter='[type[SVG Element]]'>
 		<$checkbox tag={{$:/state/Images!!selected_surface}}>
 			<$view field='object_name'/>
 		</$checkbox> 

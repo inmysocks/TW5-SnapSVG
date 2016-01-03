@@ -6,7 +6,7 @@ title: $:/plugins/inmysocks/SnapSVG/Animation
 	<option value=''>
 		None
 	</option>
-	<$list filter='backin backout bounce easein easeinout easeout elastic getById linear time'>
+	<$list filter='backin backout bounce easein easeinout easeout elastic linear time'>
 		<option>
 			<$view field=title/>
 		</option>
@@ -37,10 +37,10 @@ title: $:/plugins/inmysocks/SnapSVG/Animation
 		image={{$:/state/Animation!!selected_image}} 
 		object_name="""$ObjectName$""" 
 		group_name="""$(GroupName)$""" 
-		tags=Animation 
 		animation_name={{$:/state/Animation!!animation_name}} 
 		object_type={{$:/state/Animation!!object_type}}
 		transform={{$:/state/Animation!!selected_transform}}
+		type='SVG Animation'
 	/>
 	<$action-setfield 
 		$tiddler='$:/state/Animation' 
@@ -65,7 +65,7 @@ Select SVG Surface:
 	<option value=''>
 		--
 	</option>
-	<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]]'>
+	<$list filter='[all[tiddlers+system+shadows]tag[SVG Image]][all[tiddlers+system+shadows]type[SVG Image]]'>
 		<option value=<<currentTiddler>>>
 			<$view field='title'/>
 		</option>
@@ -83,7 +83,7 @@ Select Element:
 	<option value=''>
 		--
 	</option>
-	<$list filter='[tag{$:/state/Animation!!selected_image}tag[SVG Element]]'>
+	<$list filter='[tag{$:/state/Animation!!selected_image}tag[SVG Element]][tag{$:/state/Animation!!selected_image}type[SVG Element]]'>
 		<option value=<<currentTiddler>>>
 			<$view field='object_name'/>
 		</option>
@@ -99,7 +99,7 @@ Select Group:
 	<option value=''>
 		--
 	</option>
-	<$list filter='[image{$:/state/Animation!!selected_image}object_type[Group]]'>
+	<$list filter='[image{$:/state/Animation!!selected_image}object_type[Group]][image{$:/state/Animation!!selected_image}type[SVG Group]]'>
 		<option value=<<currentTiddler>>>
 			<$view field='object_name'/>
 		</option>

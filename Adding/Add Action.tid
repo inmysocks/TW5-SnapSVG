@@ -10,7 +10,8 @@ type: text/vnd.tiddlywiki
 		$tiddler="""$:/SVG Action/$(ActionType)$/$(ActionName)$""" 
 		action_name={{$:/temp/SnapSVG/Add Action!!action_name}} 
 		action_type={{$:/temp/SnapSVG/Add Action!!selected_action}} 
-		tags="""Action [[$(ImageName)$]]"""
+		tags="""[[$(ImageName)$]]"""
+		type='SVG Action'
 	/>
 	<$reveal type='match' state='$:/temp/SnapSVG/Add Action!!selected_action' text='Add Object'>
 		<$action-setfield 
@@ -116,7 +117,7 @@ Image:
 	<option value=''>
 		--
 	</option>
-	<$list filter='[tag[SVG Image]]'>
+	<$list filter='[type[SVG Image]]'>
 		<option>
 			<$view field='title'/>
 		</option>
@@ -132,14 +133,14 @@ Image:
 			--
 		</option>
 		<optgroup label="Elements">
-			<$list filter='[tag[SVG Element]]'>
+			<$list filter='[type[SVG Element]]'>
 				<option value=<<currentTiddler>>>
 					<$view field='object_name'/>
 				</option>
 			</$list>
 		</optgroup>
 		<optgroup label="Groups">
-			<$list filter='[object_type[Group]]'>
+			<$list filter='[type[SVG Group]]'>
 				<option value=<<currentTiddler>>>
 					<$view field='object_name'/>
 				</option>
@@ -157,14 +158,14 @@ Image:
 			--
 		</option>
 		<optgroup label="Elements">
-			<$list filter='[tag[SVG Element]]'>
+			<$list filter='[type[SVG Element]]'>
 				<option value=<<currentTiddler>>>
 					<$view field='object_name'/>
 				</option>
 			</$list>
 		</optgroup>
 		<optgroup label="Groups">
-			<$list filter='[object_type[Group]]'>
+			<$list filter='[type[SVG Group]]'>
 				<option value=<<currentTiddler>>>
 					<$view field='object_name'/>
 				</option>
@@ -181,7 +182,7 @@ Image:
 		<option value=''>
 			--
 		</option>
-		<$list filter='[tag[Animation]]'>
+		<$list filter='[type[Animation]]'>
 			<option value=<<currentTiddler>>>
 				<$view field='animation_name'/>
 			</option>
@@ -197,7 +198,7 @@ Image:
 		<option value=''>
 			--
 		</option>
-		<$list filter='[tag[Action]action_type[Batch]]'>
+		<$list filter='[type[SVG Action]action_type[Batch]]'>
 			<option value=<<currentTiddler>>>
 				<$view field='action_name'/>
 			</option>
@@ -223,7 +224,7 @@ Image:
 		<option value=''>
 			--
 		</option>
-		<$list filter='[tag[Action]]'>
+		<$list filter='[type[SVG Action]]'>
 			<option value=<<currentTiddler>>>
 				<$view field='action_name'/>
 			</option>
@@ -249,7 +250,7 @@ Image:
 		<option value=''>
 			--
 		</option>
-		<$list filter='[tag[Action]action_type[Click Event]][tag[Action]action_type[Add Click Event]]'>
+		<$list filter='[type[SVG Action]action_type[Add Click Event]]'>
 			<option value=<<currentTiddler>>>
 				<$view field='action_name'/>
 			</option>
@@ -275,7 +276,7 @@ Image:
 		<option value=''>
 			--
 		</option>
-		<$list filter='[tag[Action]]'>
+		<$list filter='[type[SVG Action]]'>
 			<option value=<<currentTiddler>>>
 				<$view field='action_name'/>
 			</option>
@@ -301,7 +302,7 @@ Image:
 		<option value=''>
 			--
 		</option>
-		<$list filter='[tag[Action]action_type[Double Click Event]][tag[Action]action_type[Add Double Click Event]]'>
+		<$list filter='[type[SVG Action]action_type[Add Double Click Event]]'>
 			<option value=<<currentTiddler>>>
 				<$view field='action_name'/>
 			</option>

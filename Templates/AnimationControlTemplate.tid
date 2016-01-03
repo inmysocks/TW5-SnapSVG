@@ -1,11 +1,15 @@
 tags: $:/tags/ViewTemplate
-title: $:/plugins/inmysocks/SnapSVG/AnimationControlTemplate
+title: $:/plugins/inmysocks/SnapSVG/Templates/AnimationControlTemplate
 
-<$list filter='[is[current]tag[Animation]]'>
+<$list filter='[is[current]type[SVG Animation]]'>
 
 <$checkbox field=enabled checked=true unchecked=false>Enabled</$checkbox>
 
 <$checkbox field=callback checked=true unchecked=false>Callback</$checkbox> (if this is checked than the animation is triggered by another animation ending and won't start automatically)
+
+<$checkbox field=invertable checked=true unchecked=false>Invertable</$checkbox> (if this is checked than the animation alternates between forward and backward)
+
+<$checkbox field=looping checked=true unchecked=false>Looping</$checkbox>
 
 Effect: <$select field='effect'>
 <option value=''>None</option>
@@ -23,21 +27,15 @@ Next Animation: <$select field='next'>
 		<option value=''>
 			--
 		</option>
-		<$list filter='[tag[Animation]]'>
+		<$list filter='[type[SVG Animation]]'>
 			<option value={{!!title}}>
 				<$view field='animation_name'/>
 			</option>
 		</$list>
 	</$select>
 
-Set Mark: <$select field='set_mark'>
-<option value=''>--</option>
-<$list filter='[tag[Mark]]'>
-<option><$view field='title'/></$option>
-</$list>
-</$select>
+
 
 *The next animation lists an optional animation to trigger once this animation is finished. Note that making loops using this will cause javascript errors. For loops use the set mark option.
 
-*''Not implemented yet'' - Set Mark lets you select a preset group of animations to trigger once the current animation finishes. Whenever the animation starts the surface is cleared and the current mark is checked and the animations, elements, groups, etc. listed on that mark are added.
 </$list>
